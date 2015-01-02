@@ -1,0 +1,20 @@
+# This file contains additional build requirements that did not get
+# picked up automatically. One name per line, no whitespace.
+libjpeg-turbo-dev
+tcl-dev
+libpng-dev
+xz-dev
+pcre-dev
+bzip2-dev
+tiff-dev
+openblas
+icu4c-dev
+cairo-dev
+pango-dev
+zip
+curl-dev
+ncurses-dev
+readline-dev
+util-linux
+less
+bison

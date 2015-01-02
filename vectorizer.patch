@@ -1,0 +1,14 @@
+Give GCC a vectorization hint in the core loop of the vector math loop
+
+
+--- R-3.2.0/src/include/R_ext/Itermacros.h.org	2015-06-13 17:16:52.359349069 -0400
++++ R-3.2.0/src/include/R_ext/Itermacros.h	2015-06-13 17:28:24.495696174 -0400
+@@ -38,7 +38,7 @@
+     } while (0)
+ 
+ #define R_ITERATE_CORE(n, i, loop_body) do {	\
+-	for (; i < n; ++i) { loop_body }	\
++	 _Pragma("GCC ivdep")	for (; i < n; ++i) { loop_body }	\
+     } while (0)
+ 
+ #define R_ITERATE(n, i, loop_body) do {		\
