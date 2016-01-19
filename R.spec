@@ -81,8 +81,8 @@ lib components for the R package.
 unset LD_AS_NEEDED
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
-export CFLAGS="$CFLAGS -flto -ffunction-sections -fno-semantic-interposition -O3 "
-export CXXFLAGS="$CXXFLAGS -flto -ffunction-sections -fno-semantic-interposition -O3 "
+export CFLAGS="$CFLAGS -flto -ffunction-sections -fno-semantic-interposition -O3 -march=sandybridge"
+export CXXFLAGS="$CXXFLAGS -flto -ffunction-sections -fno-semantic-interposition -O3 -march=sandybridge"
 %configure --disable-static --without-x --with-system-zlib --with-system-bzlib --with-system-pcre --with-system-xz --enable-BLAS-shlib --enable-R-shlib --with-blas="-lopenblas" --with-cairo --enable-lto
 make V=1  %{?_smp_mflags}
 
