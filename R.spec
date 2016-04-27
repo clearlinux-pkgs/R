@@ -4,7 +4,7 @@
 #
 Name     : R
 Version  : 3.2.5
-Release  : 51
+Release  : 52
 URL      : http://cran.cnr.berkeley.edu/src/base/R-3/R-3.2.5.tar.gz
 Source0  : http://cran.cnr.berkeley.edu/src/base/R-3/R-3.2.5.tar.gz
 Summary  : Simple Package with NameSpace and S4 Methods and Classes
@@ -73,7 +73,6 @@ lib components for the R package.
 
 
 %prep
-cd ..
 %setup -q -n R-3.2.5
 %patch1 -p1
 %patch2 -p1
@@ -83,10 +82,10 @@ unset LD_AS_NEEDED
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
 export NM=gcc-nm
-export CFLAGS="$CFLAGS -fno-semantic-interposition -flto -O3 -falign-functions=32 "
-export FCFLAGS="$CFLAGS -fno-semantic-interposition -flto -O3 -falign-functions=32 "
-export FFLAGS="$CFLAGS -fno-semantic-interposition -flto -O3 -falign-functions=32 "
-export CXXFLAGS="$CXXFLAGS -fno-semantic-interposition -flto -O3 -falign-functions=32 "
+export CFLAGS="$CFLAGS -falign-functions=32 -fno-semantic-interposition -flto -O3 "
+export FCFLAGS="$CFLAGS -falign-functions=32 -fno-semantic-interposition -flto -O3 "
+export FFLAGS="$CFLAGS -falign-functions=32 -fno-semantic-interposition -flto -O3 "
+export CXXFLAGS="$CXXFLAGS -falign-functions=32 -fno-semantic-interposition -flto -O3 "
 %configure --disable-static --without-x --with-system-zlib --with-system-bzlib --with-system-pcre --with-system-xz --enable-BLAS-shlib --enable-R-shlib --with-blas="-lopenblas" --with-cairo --enable-lto
 make V=1  %{?_smp_mflags}
 

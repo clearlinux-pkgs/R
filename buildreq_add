@@ -6,7 +6,6 @@ libpng-dev
 xz-dev
 pcre-dev
 bzip2-dev
-tiff-dev
 openblas
 icu4c-dev
 cairo-dev
