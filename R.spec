@@ -4,7 +4,7 @@
 #
 Name     : R
 Version  : 3.2.5
-Release  : 52
+Release  : 53
 URL      : http://cran.cnr.berkeley.edu/src/base/R-3/R-3.2.5.tar.gz
 Source0  : http://cran.cnr.berkeley.edu/src/base/R-3/R-3.2.5.tar.gz
 Summary  : Simple Package with NameSpace and S4 Methods and Classes
@@ -26,7 +26,6 @@ BuildRequires : pango-dev
 BuildRequires : pcre-dev
 BuildRequires : readline-dev
 BuildRequires : tcl-dev
-BuildRequires : tiff-dev
 BuildRequires : util-linux
 BuildRequires : xz-dev
 Patch1: malloc_cache.patch
@@ -82,10 +81,10 @@ unset LD_AS_NEEDED
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
 export NM=gcc-nm
-export CFLAGS="$CFLAGS -falign-functions=32 -fno-semantic-interposition -flto -O3 "
-export FCFLAGS="$CFLAGS -falign-functions=32 -fno-semantic-interposition -flto -O3 "
-export FFLAGS="$CFLAGS -falign-functions=32 -fno-semantic-interposition -flto -O3 "
-export CXXFLAGS="$CXXFLAGS -falign-functions=32 -fno-semantic-interposition -flto -O3 "
+export CFLAGS="$CFLAGS -O3 -flto -fno-semantic-interposition -falign-functions=32 -march=sandybridge "
+export FCFLAGS="$CFLAGS -O3 -flto -fno-semantic-interposition -falign-functions=32 -march=sandybridge "
+export FFLAGS="$CFLAGS -O3 -flto -fno-semantic-interposition -falign-functions=32 -march=sandybridge "
+export CXXFLAGS="$CXXFLAGS -O3 -flto -fno-semantic-interposition -falign-functions=32 -march=sandybridge "
 %configure --disable-static --without-x --with-system-zlib --with-system-bzlib --with-system-pcre --with-system-xz --enable-BLAS-shlib --enable-R-shlib --with-blas="-lopenblas" --with-cairo --enable-lto
 make V=1  %{?_smp_mflags}
 
