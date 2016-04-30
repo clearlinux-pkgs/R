@@ -4,7 +4,7 @@
 #
 Name     : R
 Version  : 3.2.5
-Release  : 54
+Release  : 55
 URL      : http://cran.cnr.berkeley.edu/src/base/R-3/R-3.2.5.tar.gz
 Source0  : http://cran.cnr.berkeley.edu/src/base/R-3/R-3.2.5.tar.gz
 Summary  : Simple Package with NameSpace and S4 Methods and Classes
