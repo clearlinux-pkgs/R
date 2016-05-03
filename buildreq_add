@@ -17,3 +17,5 @@ readline-dev
 util-linux
 less
 bison
+openssl-dev
+libidn-dev
