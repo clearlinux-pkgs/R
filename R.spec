@@ -83,10 +83,10 @@ unset LD_AS_NEEDED
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
 export NM=gcc-nm
-export CFLAGS="$CFLAGS -flto -O3 -falign-functions=32 -fno-semantic-interposition "
-export FCFLAGS="$CFLAGS -flto -O3 -falign-functions=32 -fno-semantic-interposition "
-export FFLAGS="$CFLAGS -flto -O3 -falign-functions=32 -fno-semantic-interposition "
-export CXXFLAGS="$CXXFLAGS -flto -O3 -falign-functions=32 -fno-semantic-interposition "
+export CFLAGS="$CFLAGS -flto -O3 -falign-functions=32 -fno-semantic-interposition  -march=sandybridge "
+export FCFLAGS="$CFLAGS -flto -O3 -falign-functions=32 -fno-semantic-interposition -march=sandybridge  "
+export FFLAGS="$CFLAGS -flto -O3 -falign-functions=32 -fno-semantic-interposition -march=sandybridge  "
+export CXXFLAGS="$CXXFLAGS -flto -O3 -falign-functions=32 -fno-semantic-interposition -march=sandybridge  "
 %configure --disable-static --without-x --with-system-zlib --with-system-bzlib --with-system-pcre --with-system-xz --enable-BLAS-shlib --enable-R-shlib --with-blas="-lopenblas" --with-cairo --enable-lto
 make V=1  %{?_smp_mflags}
 
