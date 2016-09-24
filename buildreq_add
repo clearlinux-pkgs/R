@@ -19,3 +19,4 @@ less
 bison
 openssl-dev
 libidn-dev
+nghttp2-dev

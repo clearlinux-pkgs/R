@@ -30,6 +30,8 @@ BuildRequires : readline-dev
 BuildRequires : tcl-dev
 BuildRequires : util-linux
 BuildRequires : xz-dev
+BuildRequires : nghttp2-dev
+
 Patch1: malloc_cache.patch
 Patch2: vectorizer.patch
 
@@ -84,9 +86,9 @@ export AR=gcc-ar
 export RANLIB=gcc-ranlib
 export NM=gcc-nm
 export CFLAGS="$CFLAGS -O3 -flto -falign-functions=32 -fno-semantic-interposition  -march=sandybridge "
-export FCFLAGS="$CFLAGS -O3 -flto -falign-functions=32 -fno-semantic-interposition  -march=sandybridge "
-export FFLAGS="$CFLAGS -O3 -flto -falign-functions=32 -fno-semantic-interposition  -march=sandybridge "
-export CXXFLAGS="$CXXFLAGS -O3 -flto -falign-functions=32 -fno-semantic-interposition  -march=sandybridge "
+export FCFLAGS="$CFLAGS -O3 -flto -falign-functions=32 -fno-semantic-interposition -march=sandybridge "
+export FFLAGS="$CFLAGS -O3 -flto -falign-functions=32 -fno-semantic-interposition    -march=sandybridge "
+export CXXFLAGS="$CXXFLAGS -O3 -flto -falign-functions=32 -fno-semantic-interposition   -march=sandybridge "
 %configure --disable-static --without-x --with-system-zlib --with-system-bzlib --with-system-pcre --with-system-xz --enable-BLAS-shlib --enable-R-shlib --with-blas="-lopenblas" --with-cairo --enable-lto
 make V=1  %{?_smp_mflags}
 
