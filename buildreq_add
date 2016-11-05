@@ -20,3 +20,7 @@ bison
 openssl-dev
 libidn-dev
 nghttp2-dev
+tzdata
+openblas-staticdev
+cairo-dev
+libssh2-dev
