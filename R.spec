@@ -4,7 +4,7 @@
 #
 Name     : R
 Version  : 3.4.0
-Release  : 70
+Release  : 71
 URL      : http://cran.cnr.berkeley.edu/src/base/R-3/R-3.4.0.tar.gz
 Source0  : http://cran.cnr.berkeley.edu/src/base/R-3/R-3.4.0.tar.gz
 Summary  : Simple Package with NameSpace and S4 Methods and Classes
@@ -91,7 +91,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
-export SOURCE_DATE_EPOCH=1496592440
+export SOURCE_DATE_EPOCH=1496604342
 unset LD_AS_NEEDED
 export CFLAGS="$CFLAGS -O3 -falign-functions=32 -fno-semantic-interposition "
 export FCFLAGS="$CFLAGS -O3 -falign-functions=32 -fno-semantic-interposition "
@@ -101,9 +101,12 @@ export CXXFLAGS="$CXXFLAGS -O3 -falign-functions=32 -fno-semantic-interposition 
 make V=1  %{?_smp_mflags}
 
 %install
-export SOURCE_DATE_EPOCH=1496592440
+export SOURCE_DATE_EPOCH=1496604342
 rm -rf %{buildroot}
 %make_install
+## make_install_append content
+sed -i -e "s/\-fno-semantic-interposition/-fno-semantic-interposition -march=native/" %{buildroot}/usr/lib64/R/etc/Makeconf
+## make_install_append end
 
 %files
 %defattr(-,root,root,-)
