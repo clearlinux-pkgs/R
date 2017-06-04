@@ -4,12 +4,12 @@
 #
 Name     : R
 Version  : 3.4.0
-Release  : 69
+Release  : 70
 URL      : http://cran.cnr.berkeley.edu/src/base/R-3/R-3.4.0.tar.gz
 Source0  : http://cran.cnr.berkeley.edu/src/base/R-3/R-3.4.0.tar.gz
 Summary  : Simple Package with NameSpace and S4 Methods and Classes
 Group    : Development/Tools
-License  : BSD-2-Clause GPL-2.0 GPL-2.0+
+License  : BSD-2-Clause BSD-3-Clause GPL-2.0 GPL-2.0+
 Requires: R-bin
 Requires: R-lib
 Requires: R-doc
@@ -38,6 +38,7 @@ BuildRequires : xz-dev
 BuildRequires : zip
 Patch1: malloc_cache.patch
 Patch2: vectorizer.patch
+Patch3: avx2.patch
 
 %description
 (See "doc/FAQ" and "doc/RESOURCES" for more detailed information
@@ -83,23 +84,24 @@ lib components for the R package.
 %setup -q -n R-3.4.0
 %patch1 -p1
 %patch2 -p1
+%patch3 -p1
 
 %build
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
-export SOURCE_DATE_EPOCH=1492793575
+export SOURCE_DATE_EPOCH=1496592440
 unset LD_AS_NEEDED
-export CFLAGS="$CFLAGS -O3 -falign-functions=32 -fno-semantic-interposition -fno-semantic-interposition -march=sandybridge "
-export FCFLAGS="$CFLAGS -O3 -falign-functions=32 -fno-semantic-interposition -fno-semantic-interposition -march=sandybridge "
-export FFLAGS="$CFLAGS -O3 -falign-functions=32 -fno-semantic-interposition -fno-semantic-interposition -march=sandybridge "
-export CXXFLAGS="$CXXFLAGS -O3 -falign-functions=32 -fno-semantic-interposition -fno-semantic-interposition -march=sandybridge "
+export CFLAGS="$CFLAGS -O3 -falign-functions=32 -fno-semantic-interposition "
+export FCFLAGS="$CFLAGS -O3 -falign-functions=32 -fno-semantic-interposition "
+export FFLAGS="$CFLAGS -O3 -falign-functions=32 -fno-semantic-interposition "
+export CXXFLAGS="$CXXFLAGS -O3 -falign-functions=32 -fno-semantic-interposition "
 %configure --disable-static --without-x --with-system-zlib --with-system-bzlib --with-system-pcre --with-system-xz --enable-BLAS-shlib --enable-R-shlib --with-blas="-lopenblas" --with-cairo --enable-lto
 make V=1  %{?_smp_mflags}
 
 %install
-export SOURCE_DATE_EPOCH=1492793575
+export SOURCE_DATE_EPOCH=1496592440
 rm -rf %{buildroot}
 %make_install
 
