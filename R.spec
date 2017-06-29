@@ -1,6 +1,6 @@
 Name     : R
 Version  : 3.4.0
-Release  : 75
+Release  : 76
 URL      : http://cran.cnr.berkeley.edu/src/base/R-3/R-3.4.0.tar.gz
 Source0  : http://cran.cnr.berkeley.edu/src/base/R-3/R-3.4.0.tar.gz
 Summary  : Simple Package with NameSpace and S4 Methods and Classes
@@ -93,18 +93,18 @@ export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
 export SOURCE_DATE_EPOCH=1496604342
 unset LD_AS_NEEDED
-export CFLAGS="$CFLAGS -O3 -falign-functions=32 -fno-semantic-interposition -flto=4 "
-export FCFLAGS="$CFLAGS -O3 -falign-functions=32 -fno-semantic-interposition -flto=4 "
-export FFLAGS="$CFLAGS -O3 -falign-functions=32 -fno-semantic-interposition -flto=4 "
-export CXXFLAGS="$CXXFLAGS -O3 -falign-functions=32 -fno-semantic-interposition -flto=4 "
+export CFLAGS="$CFLAGS -O3 -falign-functions=32 -fno-semantic-interposition -flto=12 "
+export FCFLAGS="$CFLAGS -O3 -falign-functions=32 -fno-semantic-interposition -flto=12 "
+export FFLAGS="$CFLAGS -O3 -falign-functions=32 -fno-semantic-interposition -flto=12 "
+export CXXFLAGS="$CXXFLAGS -O3 -falign-functions=32 -fno-semantic-interposition -flto=12 "
 %configure --disable-static --without-x --with-system-zlib --with-system-bzlib --with-system-pcre --with-system-xz --enable-BLAS-shlib --enable-R-shlib --with-blas="-lopenblas" --with-cairo --enable-lto
 make V=1  %{?_smp_mflags}
 
 pushd ../R-3.4.0-avx2
-export CFLAGS="$CFLAGS -mavx -flto=4 "
-export FCFLAGS="$CFLAGS -mavx -flto=4 "
-export FFLAGS="$CFLAGS -mavx -flto=4 "
-export CXXFLAGS="$CXXFLAGS -mavx -flto=4 "
+export CFLAGS="$CFLAGS -mavx -flto=12 "
+export FCFLAGS="$CFLAGS -mavx -flto=12 "
+export FFLAGS="$CFLAGS -mavx -flto=12 "
+export CXXFLAGS="$CXXFLAGS -mavx -flto=12 "
 
 %configure --disable-static --without-x --with-system-zlib --with-system-bzlib --with-system-pcre --with-system-xz --enable-BLAS-shlib --enable-R-shlib --with-blas="-lopenblas" --with-cairo --enable-lto
 make V=1  %{?_smp_mflags}
@@ -120,7 +120,7 @@ pushd ../R-3.4.0-avx2
 mkdir -p %{buildroot}/usr/lib64/R/lib/haswell/
 mv %{buildroot}/usr/lib64/R/lib/*.so %{buildroot}/usr/lib64/R/lib/haswell/
 for i in `find %{buildroot}/usr/lib64/R/library/ -name "*.so"`; do mv $i $i.avx2 ; done
-rm `find %{buildroot} -type f | grep -v avx2` || :
+rm `find %{buildroot} -type f | grep -v avx2 | grep -v haswell`  || :
 popd
 
 
