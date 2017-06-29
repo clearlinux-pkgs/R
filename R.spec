@@ -1,6 +1,6 @@
 Name     : R
 Version  : 3.4.0
-Release  : 74
+Release  : 75
 URL      : http://cran.cnr.berkeley.edu/src/base/R-3/R-3.4.0.tar.gz
 Source0  : http://cran.cnr.berkeley.edu/src/base/R-3/R-3.4.0.tar.gz
 Summary  : Simple Package with NameSpace and S4 Methods and Classes
@@ -120,7 +120,7 @@ pushd ../R-3.4.0-avx2
 mkdir -p %{buildroot}/usr/lib64/R/lib/haswell/
 mv %{buildroot}/usr/lib64/R/lib/*.so %{buildroot}/usr/lib64/R/lib/haswell/
 for i in `find %{buildroot}/usr/lib64/R/library/ -name "*.so"`; do mv $i $i.avx2 ; done
-rm `find %{buildroot} | grep -v avx2`
+rm `find %{buildroot} -type f | grep -v avx2` || :
 popd
 
 
