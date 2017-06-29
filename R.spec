@@ -1,6 +1,6 @@
 Name     : R
 Version  : 3.4.0
-Release  : 73
+Release  : 74
 URL      : http://cran.cnr.berkeley.edu/src/base/R-3/R-3.4.0.tar.gz
 Source0  : http://cran.cnr.berkeley.edu/src/base/R-3/R-3.4.0.tar.gz
 Summary  : Simple Package with NameSpace and S4 Methods and Classes
@@ -93,33 +93,20 @@ export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
 export SOURCE_DATE_EPOCH=1496604342
 unset LD_AS_NEEDED
-export CFLAGS="$CFLAGS -O3 -falign-functions=32 -fno-semantic-interposition "
-export FCFLAGS="$CFLAGS -O3 -falign-functions=32 -fno-semantic-interposition "
-export FFLAGS="$CFLAGS -O3 -falign-functions=32 -fno-semantic-interposition "
-export CXXFLAGS="$CXXFLAGS -O3 -falign-functions=32 -fno-semantic-interposition "
+export CFLAGS="$CFLAGS -O3 -falign-functions=32 -fno-semantic-interposition -flto=4 "
+export FCFLAGS="$CFLAGS -O3 -falign-functions=32 -fno-semantic-interposition -flto=4 "
+export FFLAGS="$CFLAGS -O3 -falign-functions=32 -fno-semantic-interposition -flto=4 "
+export CXXFLAGS="$CXXFLAGS -O3 -falign-functions=32 -fno-semantic-interposition -flto=4 "
 %configure --disable-static --without-x --with-system-zlib --with-system-bzlib --with-system-pcre --with-system-xz --enable-BLAS-shlib --enable-R-shlib --with-blas="-lopenblas" --with-cairo --enable-lto
 make V=1  %{?_smp_mflags}
 
 pushd ../R-3.4.0-avx2
-export CFLAGS="$CFLAGS -mavx "
-export FCFLAGS="$CFLAGS -mavx "
-export FFLAGS="$CFLAGS -mavx "
-export CXXFLAGS="$CXXFLAGS -mavx "
+export CFLAGS="$CFLAGS -mavx -flto=4 "
+export FCFLAGS="$CFLAGS -mavx -flto=4 "
+export FFLAGS="$CFLAGS -mavx -flto=4 "
+export CXXFLAGS="$CXXFLAGS -mavx -flto=4 "
 
 %configure --disable-static --without-x --with-system-zlib --with-system-bzlib --with-system-pcre --with-system-xz --enable-BLAS-shlib --enable-R-shlib --with-blas="-lopenblas" --with-cairo --enable-lto
-make V=1  %{?_smp_mflags}
-popd
-
-pushd ../R-3.4.0-avx512
-export CFLAGS="$CFLAGS -march=skylake-avx512 "
-export FCFLAGS="$CFLAGS -march=skylake-avx512 "
-export FFLAGS="$CFLAGS -march=skylake-avx512 "
-export CXXFLAGS="$CXXFLAGS -march=skylake-avx512 "
-
-for i in `find -name "Makefile.in"`; do sed -i -e "s|R_EXE = \$(top_builddir)/bin/R|R_EXE = \$(top_builddir)/../R-3.4.0/bin/R|g" $i ; done
-for i in `find -name "Makefile.in"`; do sed -i -e "s|R_EXE = R_ENABLE_JIT=0 \$(top_builddir)/bin/R|R_EXE = R_ENABLE_JIT=0 \$(top_builddir)/../R-3.4.0/bin/R|g" $i ; done
-
-%configure --disable-static --without-x --with-system-zlib --with-system-bzlib --with-system-pcre --with-system-xz --enable-BLAS-shlib --enable-R-shlib --with-blas="-lopenblas" --with-cairo --enable-lto --disable-byte-compiled-packages
 make V=1  %{?_smp_mflags}
 popd
 
