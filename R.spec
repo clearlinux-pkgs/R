@@ -1,8 +1,8 @@
 Name     : R
-Version  : 3.4.0
+Version  : 3.4.1
 Release  : 76
-URL      : http://cran.cnr.berkeley.edu/src/base/R-3/R-3.4.0.tar.gz
-Source0  : http://cran.cnr.berkeley.edu/src/base/R-3/R-3.4.0.tar.gz
+URL      : http://cran.cnr.berkeley.edu/src/base/R-3/R-3.4.1.tar.gz
+Source0  : http://cran.cnr.berkeley.edu/src/base/R-3/R-3.4.1.tar.gz
 Summary  : Simple Package with NameSpace and S4 Methods and Classes
 Group    : Development/Tools
 License  : BSD-2-Clause BSD-3-Clause GPL-2.0 GPL-2.0+
@@ -77,10 +77,10 @@ lib components for the R package.
 
 
 %prep
-%setup -q -n R-3.4.0
+%setup -q -n R-3.4.1
 pushd ..
-cp -a R-3.4.0 R-3.4.0-avx2
-cp -a R-3.4.0 R-3.4.0-avx512
+cp -a R-3.4.1 R-3.4.1-avx2
+cp -a R-3.4.1 R-3.4.1-avx512
 popd
 %patch1 -p1
 %patch2 -p1
@@ -100,7 +100,7 @@ export CXXFLAGS="$CXXFLAGS -O3 -falign-functions=32 -fno-semantic-interposition 
 %configure --disable-static --without-x --with-system-zlib --with-system-bzlib --with-system-pcre --with-system-xz --enable-BLAS-shlib --enable-R-shlib --with-blas="-lopenblas" --with-cairo --enable-lto
 make V=1  %{?_smp_mflags}
 
-pushd ../R-3.4.0-avx2
+pushd ../R-3.4.1-avx2
 export CFLAGS="$CFLAGS -mavx -flto=12 "
 export FCFLAGS="$CFLAGS -mavx -flto=12 "
 export FFLAGS="$CFLAGS -mavx -flto=12 "
@@ -115,7 +115,7 @@ popd
 export SOURCE_DATE_EPOCH=1496604342
 rm -rf %{buildroot}
 
-pushd ../R-3.4.0-avx2
+pushd ../R-3.4.1-avx2
 %make_install
 mkdir -p %{buildroot}/usr/lib64/R/lib/haswell/
 mv %{buildroot}/usr/lib64/R/lib/*.so %{buildroot}/usr/lib64/R/lib/haswell/
@@ -127,7 +127,7 @@ popd
 
 %make_install
 ## make_install_append content
-sed -i -e "s/\-fno-semantic-interposition/-fno-semantic-interposition -march=native/" %{buildroot}/usr/lib64/R/etc/Makeconf
+#sed -i -e "s/\-fno-semantic-interposition/-fno-semantic-interposition -march=native/" %{buildroot}/usr/lib64/R/etc/Makeconf
 ## make_install_append end
 
 %files
