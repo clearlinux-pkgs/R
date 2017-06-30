@@ -1551,7 +1551,8 @@ popd
 /usr/lib64/R/share/texmf/tex/latex/omscmtt.fd
 /usr/lib64/R/share/texmf/tex/latex/ts1aer.fd
 /usr/lib64/R/share/texmf/tex/latex/ts1aett.fd
-
+/usr/lib64/R/library/foreign/files/electric.sav
+/usr/lib64/R/library/foreign/files/testdata.sav
 %files bin
 %defattr(-,root,root,-)
 /usr/bin/R
