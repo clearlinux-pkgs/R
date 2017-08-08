@@ -1,6 +1,6 @@
 Name     : R
 Version  : 3.4.1
-Release  : 79
+Release  : 80
 URL      : http://cran.cnr.berkeley.edu/src/base/R-3/R-3.4.1.tar.gz
 Source0  : http://cran.cnr.berkeley.edu/src/base/R-3/R-3.4.1.tar.gz
 Summary  : Simple Package with NameSpace and S4 Methods and Classes
@@ -78,13 +78,13 @@ lib components for the R package.
 
 %prep
 %setup -q -n R-3.4.1
+%patch1 -p1
+%patch2 -p1
+%patch3 -p1
 pushd ..
 cp -a R-3.4.1 R-3.4.1-avx2
 cp -a R-3.4.1 R-3.4.1-avx512
 popd
-%patch1 -p1
-%patch2 -p1
-%patch3 -p1
 
 %build
 export http_proxy=http://127.0.0.1:9/
