@@ -1,11 +1,11 @@
---- R-3.4.0/src/main/memory.c~	2017-03-23 23:03:36.000000000 +0000
-+++ R-3.4.0/src/main/memory.c	2017-08-09 03:35:59.470685051 +0000
-@@ -218,7 +218,7 @@
-     }
- }
- 
--#define GC_TORTURE
-+#undef GC_TORTURE
- 
- static int gc_pending = 0;
- #ifdef GC_TORTURE
+--- R-3.4.0/src/main/memory.c~	2017-08-09 03:45:02.000000000 +0000
++++ R-3.4.0/src/main/memory.c	2017-08-09 03:45:06.686716318 +0000
+@@ -272,7 +272,7 @@
+ static int gc_force_wait = 0;
+ static int gc_force_gap = 16;
+ static Rboolean gc_inhibit_release = FALSE;
+-#define FORCE_GC (gc_pending || (gc_force_wait > 0 ? (--gc_force_wait > 0 ? 0 : (gc_force_wait = gc_force_gap, 1)) : 0))
++#define FORCE_GC (gc_pending)
+ #else
+ # define FORCE_GC gc_pending
+ #endif
