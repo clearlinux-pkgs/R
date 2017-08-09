@@ -1,6 +1,6 @@
 Name     : R
 Version  : 3.4.1
-Release  : 84
+Release  : 85
 URL      : http://cran.cnr.berkeley.edu/src/base/R-3/R-3.4.1.tar.gz
 Source0  : http://cran.cnr.berkeley.edu/src/base/R-3/R-3.4.1.tar.gz
 Summary  : Simple Package with NameSpace and S4 Methods and Classes
@@ -35,6 +35,7 @@ BuildRequires : zip
 Patch1: malloc_cache.patch
 Patch2: vectorizer.patch
 Patch3: avx2.patch
+Patch4: ldouble.patch
 
 %description
 (See "doc/FAQ" and "doc/RESOURCES" for more detailed information
@@ -81,6 +82,8 @@ lib components for the R package.
 %patch1 -p1
 %patch2 -p1
 %patch3 -p1
+%patch4 -p1
+
 pushd ..
 cp -a R-3.4.1 R-3.4.1-avx2
 cp -a R-3.4.1 R-3.4.1-avx512

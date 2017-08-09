@@ -1,0 +1,20 @@
+--- R-3.4.0/src/library/stats/src/cov.c~	2016-03-16 23:03:02.000000000 +0000
++++ R-3.4.0/src/library/stats/src/cov.c	2017-08-09 02:27:46.926376874 +0000
+@@ -72,7 +72,7 @@
+ /** Compute   Cov(xx[], yy[])  or  Cor(.,.)  with n = length(xx)
+  */
+ #define COV_PAIRWISE_BODY						\
+-	LDOUBLE sum, xmean = 0., ymean = 0., xsd, ysd, xm, ym;	\
++	double sum, xmean = 0., ymean = 0., xsd, ysd, xm, ym;	\
+         int k, nobs, n1 = -1;	/* -Wall initializing */		\
+ 									\
+ 	    nobs = 0;							\
+@@ -176,7 +176,7 @@
+  *           --------      -------
+ */
+ #define COV_ini_0				\
+-    LDOUBLE sum, tmp, xxm, yym;			\
++    double sum, tmp, xxm, yym;			\
+     double *xx, *yy;				\
+     int i, j, k, n1=-1/* -Wall */
+ 
