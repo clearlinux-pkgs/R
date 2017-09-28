@@ -1,8 +1,8 @@
 Name     : R
-Version  : 3.4.1
+Version  : 3.4.2
 Release  : 91
-URL      : http://cran.cnr.berkeley.edu/src/base/R-3/R-3.4.1.tar.gz
-Source0  : http://cran.cnr.berkeley.edu/src/base/R-3/R-3.4.1.tar.gz
+URL      : http://cran.cnr.berkeley.edu/src/base/R-3/R-3.4.2.tar.gz
+Source0  : http://cran.cnr.berkeley.edu/src/base/R-3/R-3.4.2.tar.gz
 Summary  : Simple Package with NameSpace and S4 Methods and Classes
 Group    : Development/Tools
 License  : BSD-2-Clause BSD-3-Clause GPL-2.0 GPL-2.0+
@@ -78,15 +78,15 @@ lib components for the R package.
 
 
 %prep
-%setup -q -n R-3.4.1
+%setup -q -n R-3.4.2
 %patch1 -p1
 %patch2 -p1
 %patch3 -p1
 %patch4 -p1
 
 pushd ..
-cp -a R-3.4.1 R-3.4.1-avx2
-cp -a R-3.4.1 R-3.4.1-avx512
+cp -a R-3.4.2 R-3.4.2-avx2
+cp -a R-3.4.2 R-3.4.2-avx512
 popd
 
 %build
@@ -103,7 +103,7 @@ export CXXFLAGS="$CXXFLAGS -O3 -falign-functions=32 -fno-semantic-interposition 
 %configure --disable-static --without-x --with-system-zlib --with-system-bzlib --with-system-pcre --with-system-xz --enable-BLAS-shlib --enable-R-shlib --with-blas="-lopenblas" --with-cairo --enable-lto
 make V=1  %{?_smp_mflags}
 
-pushd ../R-3.4.1-avx2
+pushd ../R-3.4.2-avx2
 export CFLAGS="$CFLAGS -march=haswell -flto=12 "
 export FCFLAGS="$CFLAGS -march=haswell -flto=12 "
 export FFLAGS="$CFLAGS -march=haswell -flto=12 "
@@ -118,7 +118,7 @@ popd
 export SOURCE_DATE_EPOCH=1496604342
 rm -rf %{buildroot}
 
-pushd ../R-3.4.1-avx2
+pushd ../R-3.4.2-avx2
 %make_install
 mkdir -p %{buildroot}/usr/lib64/R/lib/haswell/
 mv %{buildroot}/usr/lib64/R/lib/*.so %{buildroot}/usr/lib64/R/lib/haswell/
