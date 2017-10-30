@@ -100,6 +100,12 @@ export CFLAGS="$CFLAGS -O3 -falign-functions=32 -fno-semantic-interposition -flt
 export FCFLAGS="$CFLAGS -O3 -falign-functions=32 -fno-semantic-interposition -flto=12 "
 export FFLAGS="$CFLAGS -O3 -falign-functions=32 -fno-semantic-interposition -flto=12 "
 export CXXFLAGS="$CXXFLAGS -O3 -falign-functions=32 -fno-semantic-interposition -flto=12 "
+
+# Ensure that C and C++ shared libraries contain debuginfo by adding -g to
+# linker command lines. Note that -g is appended to the default linker flags.
+export SHLIB_LDFLAGS="-g"
+export SHLIB_CXXLDFLAGS="-g"
+
 %configure --disable-static --without-x --with-system-zlib --with-system-bzlib --with-system-pcre --with-system-xz --enable-BLAS-shlib --enable-R-shlib --with-blas="-lopenblas" --with-cairo --enable-lto
 make V=1  %{?_smp_mflags}
 
