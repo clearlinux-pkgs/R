@@ -1,6 +1,6 @@
 Name     : R
 Version  : 3.4.3
-Release  : 93
+Release  : 94
 URL      : http://cran.cnr.berkeley.edu/src/base/R-3/R-3.4.3.tar.gz
 Source0  : http://cran.cnr.berkeley.edu/src/base/R-3/R-3.4.3.tar.gz
 Summary  : Simple Package with NameSpace and S4 Methods and Classes
@@ -28,6 +28,7 @@ BuildRequires : pango-dev
 BuildRequires : pcre-dev
 BuildRequires : readline-dev
 BuildRequires : tcl-dev
+BuildRequires : texinfo
 BuildRequires : tzdata
 BuildRequires : util-linux
 BuildRequires : xz-dev
@@ -119,17 +120,37 @@ export CXXFLAGS="$CXXFLAGS -march=haswell -flto=12 "
 make V=1  %{?_smp_mflags}
 popd
 
+#pushd ../R-3.4.3-avx512
+#export CFLAGS="$CFLAGS -march=skylake-avx512 -flto=12 "
+#export FCFLAGS="$CFLAGS -march=skylake-avx512 -flto=12 "
+#export FFLAGS="$CFLAGS -march=skylake-avx512 -flto=12 "
+#export CXXFLAGS="$CXXFLAGS -march=skylake-avx512 -flto=12 "
+#export MAIN_CFLAGS="-march=haswell"
+#
+#%configure --disable-static --without-x --with-system-zlib --with-system-bzlib --with-system-pcre --with-system-xz --enable-BLAS-shlib --enable-R-shlib --with-blas="-lopenblas" --with-cairo --enable-lto
+#make V=1  %{?_smp_mflags}
+#popd
+
+
 
 %install
 export SOURCE_DATE_EPOCH=1496604342
 rm -rf %{buildroot}
+
+#pushd ../R-3.4.3-avx512
+#%make_install
+#mkdir -p %{buildroot}/usr/lib64/R/lib/haswell/avx512_1
+#mv %{buildroot}/usr/lib64/R/lib/*.so %{buildroot}/usr/lib64/R/lib/haswell/avx512_1
+#for i in `find %{buildroot}/usr/lib64/R/library/ -name "*.so"`; do mv $i $i.avx512 ; done
+#rm `find %{buildroot} -type f | grep -v avx512 | grep -v haswell`  || :
+#popd
 
 pushd ../R-3.4.3-avx2
 %make_install
 mkdir -p %{buildroot}/usr/lib64/R/lib/haswell/
 mv %{buildroot}/usr/lib64/R/lib/*.so %{buildroot}/usr/lib64/R/lib/haswell/
 for i in `find %{buildroot}/usr/lib64/R/library/ -name "*.so"`; do mv $i $i.avx2 ; done
-rm `find %{buildroot} -type f | grep -v avx2 | grep -v haswell`  || :
+rm `find %{buildroot} -type f | grep -v avx2 | grep -v avx512 | grep -v haswell`  || :
 popd
 
 
@@ -1619,6 +1640,13 @@ popd
 %files doc
 %defattr(-,root,root,-)
 %doc /usr/share/man/man1/*
+/usr/lib64/R/doc/manual/R-FAQ.html
+/usr/lib64/R/doc/manual/R-admin.html
+/usr/lib64/R/doc/manual/R-data.html
+/usr/lib64/R/doc/manual/R-exts.html
+/usr/lib64/R/doc/manual/R-intro.html
+/usr/lib64/R/doc/manual/R-ints.html
+/usr/lib64/R/doc/manual/R-lang.html
 
 %files lib
 %defattr(-,root,root,-)
@@ -1629,6 +1657,7 @@ popd
 /usr/lib64/R/lib/haswell/libRblas.so
 /usr/lib64/R/lib/haswell/libRlapack.so
 /usr/lib64/R/library/*/libs/*.so.avx2
+#/usr/lib64/R/library/*/libs/*.so.avx512
 /usr/lib64/R/library/KernSmooth/libs/KernSmooth.so
 /usr/lib64/R/library/MASS/libs/MASS.so
 /usr/lib64/R/library/Matrix/libs/Matrix.so
@@ -1654,3 +1683,6 @@ popd
 /usr/lib64/R/library/utils/libs/utils.so
 /usr/lib64/R/modules/internet.so
 /usr/lib64/R/modules/lapack.so
+#/usr/lib64/R/lib/haswell/avx512_1/libR.so
+#/usr/lib64/R/lib/haswell/avx512_1/libRblas.so
+#/usr/lib64/R/lib/haswell/avx512_1/libRlapack.so
