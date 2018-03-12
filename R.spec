@@ -91,7 +91,7 @@ lib components for the R package.
 
 pushd ..
 cp -a R-3.4.3 R-3.4.3-avx2
-cp -a R-3.4.3 R-3.4.3-avx512
+#cp -a R-3.4.3 R-3.4.3-avx512
 popd
 
 %build
@@ -124,15 +124,15 @@ export CXXFLAGS="$CXXFLAGS -march=haswell -flto=12 "
 make V=1  %{?_smp_mflags}
 popd
 
-pushd ../R-3.4.3-avx512
-export CFLAGS="$CFLAGS -march=skylake-avx512 -flto=12 "
-export FCFLAGS="$CFLAGS -march=skylake-avx512 -flto=12 "
-export FFLAGS="$CFLAGS -march=skylake-avx512 -flto=12 "
-export CXXFLAGS="$CXXFLAGS -march=skylake-avx512 -flto=12 "
+#pushd ../R-3.4.3-avx512
+#export CFLAGS="$CFLAGS -march=skylake-avx512 -flto=12 "
+#export FCFLAGS="$CFLAGS -march=skylake-avx512 -flto=12 "
+#export FFLAGS="$CFLAGS -march=skylake-avx512 -flto=12 "
+#export CXXFLAGS="$CXXFLAGS -march=skylake-avx512 -flto=12 "
 
-%reconfigure --disable-static --without-x --with-system-zlib --with-system-bzlib --with-system-pcre --with-system-xz --enable-BLAS-shlib --enable-R-shlib --with-blas="-lopenblas" --with-cairo --enable-lto
-make V=1  %{?_smp_mflags} || :
-popd
+#%reconfigure --disable-static --without-x --with-system-zlib --with-system-bzlib --with-system-pcre --with-system-xz --enable-BLAS-shlib --enable-R-shlib --with-blas="-lopenblas" --with-cairo --enable-lto
+#make V=1  %{?_smp_mflags} || :
+#popd
 
 
 
@@ -140,13 +140,13 @@ popd
 export SOURCE_DATE_EPOCH=1496604342
 rm -rf %{buildroot}
 
-pushd ../R-3.4.3-avx512
-%make_install || :
-mkdir -p %{buildroot}/usr/lib64/R/lib/haswell/avx512_1
-mv %{buildroot}/usr/lib64/R/lib/*.so %{buildroot}/usr/lib64/R/lib/haswell/avx512_1
-for i in `find %{buildroot}/usr/lib64/R/library/ -name "*.so"`; do mv $i $i.avx512 ; done
-rm `find %{buildroot} -type f | grep -v avx512 | grep -v haswell`  || :
-popd
+#pushd ../R-3.4.3-avx512
+#%make_install || :
+#mkdir -p %{buildroot}/usr/lib64/R/lib/haswell/avx512_1
+#mv %{buildroot}/usr/lib64/R/lib/*.so %{buildroot}/usr/lib64/R/lib/haswell/avx512_1
+#for i in `find %{buildroot}/usr/lib64/R/library/ -name "*.so"`; do mv $i $i.avx512 ; done
+#rm `find %{buildroot} -type f | grep -v avx512 | grep -v haswell`  || :
+#popd
 
 pushd ../R-3.4.3-avx2
 %make_install
@@ -1661,7 +1661,7 @@ sed -i -e "s/-march=haswell/-march=native/g" %{buildroot}/usr/lib64/R/etc/Makeco
 /usr/lib64/R/lib/haswell/libRblas.so
 /usr/lib64/R/lib/haswell/libRlapack.so
 /usr/lib64/R/library/*/libs/*.so.avx2
-/usr/lib64/R/library/*/libs/*.so.avx512
+#/usr/lib64/R/library/*/libs/*.so.avx512
 /usr/lib64/R/library/KernSmooth/libs/KernSmooth.so
 /usr/lib64/R/library/MASS/libs/MASS.so
 /usr/lib64/R/library/Matrix/libs/Matrix.so
@@ -1687,6 +1687,6 @@ sed -i -e "s/-march=haswell/-march=native/g" %{buildroot}/usr/lib64/R/etc/Makeco
 /usr/lib64/R/library/utils/libs/utils.so
 /usr/lib64/R/modules/internet.so
 /usr/lib64/R/modules/lapack.so
-/usr/lib64/R/lib/haswell/avx512_1/libR.so
-/usr/lib64/R/lib/haswell/avx512_1/libRblas.so
-/usr/lib64/R/lib/haswell/avx512_1/libRlapack.so
+#/usr/lib64/R/lib/haswell/avx512_1/libR.so
+#/usr/lib64/R/lib/haswell/avx512_1/libRblas.so
+#/usr/lib64/R/lib/haswell/avx512_1/libRlapack.so
