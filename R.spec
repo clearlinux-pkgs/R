@@ -37,6 +37,8 @@ Patch1: malloc_cache.patch
 Patch2: vectorizer.patch
 Patch3: avx2.patch
 Patch4: no-force-gc.patch
+Patch5: macro-dirs.patch
+Patch6: pkgconfig-curl.patch
 
 %description
 (See "doc/FAQ" and "doc/RESOURCES" for more detailed information
@@ -84,6 +86,8 @@ lib components for the R package.
 %patch2 -p1
 %patch3 -p1
 %patch4 -p1
+%patch5 -p1
+%patch6 -p1
 
 pushd ..
 cp -a R-3.4.3 R-3.4.3-avx2
@@ -107,7 +111,7 @@ export CXXFLAGS="$CXXFLAGS -O3 -falign-functions=32 -fno-semantic-interposition 
 export SHLIB_LDFLAGS="-g"
 export SHLIB_CXXLDFLAGS="-g"
 
-%configure --disable-static --without-x --with-system-zlib --with-system-bzlib --with-system-pcre --with-system-xz --enable-BLAS-shlib --enable-R-shlib --with-blas="-lopenblas" --with-cairo --enable-lto
+%reconfigure --disable-static --without-x --with-system-zlib --with-system-bzlib --with-system-pcre --with-system-xz --enable-BLAS-shlib --enable-R-shlib --with-blas="-lopenblas" --with-cairo --enable-lto
 make V=1  %{?_smp_mflags}
 
 pushd ../R-3.4.3-avx2
@@ -116,7 +120,7 @@ export FCFLAGS="$CFLAGS -march=haswell -flto=12 "
 export FFLAGS="$CFLAGS -march=haswell -flto=12 "
 export CXXFLAGS="$CXXFLAGS -march=haswell -flto=12 "
 
-%configure --disable-static --without-x --with-system-zlib --with-system-bzlib --with-system-pcre --with-system-xz --enable-BLAS-shlib --enable-R-shlib --with-blas="-lopenblas" --with-cairo --enable-lto
+%reconfigure --disable-static --without-x --with-system-zlib --with-system-bzlib --with-system-pcre --with-system-xz --enable-BLAS-shlib --enable-R-shlib --with-blas="-lopenblas" --with-cairo --enable-lto
 make V=1  %{?_smp_mflags}
 popd
 
@@ -126,7 +130,7 @@ export FCFLAGS="$CFLAGS -march=skylake-avx512 -flto=12 "
 export FFLAGS="$CFLAGS -march=skylake-avx512 -flto=12 "
 export CXXFLAGS="$CXXFLAGS -march=skylake-avx512 -flto=12 "
 
-%configure --disable-static --without-x --with-system-zlib --with-system-bzlib --with-system-pcre --with-system-xz --enable-BLAS-shlib --enable-R-shlib --with-blas="-lopenblas" --with-cairo --enable-lto
+%reconfigure --disable-static --without-x --with-system-zlib --with-system-bzlib --with-system-pcre --with-system-xz --enable-BLAS-shlib --enable-R-shlib --with-blas="-lopenblas" --with-cairo --enable-lto
 make V=1  %{?_smp_mflags} || :
 popd
 

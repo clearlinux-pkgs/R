@@ -1,0 +1,57 @@
+Prefer to use `pkg-config ... libcurl`, but only when pkg-config is installed.
+Otherwise, fallback to using curl-config.
+
+diff -ru R-3.4.3/m4/R.m4 R-3.4.3~/m4/R.m4
+--- R-3.4.3/m4/R.m4	2017-05-08 15:15:07.000000000 -0700
++++ R-3.4.3~/m4/R.m4	2018-03-12 15:18:11.918732797 -0700
+@@ -4158,20 +4158,37 @@
+ ## R_LIBCURL
+ ## ----------------
+ AC_DEFUN([R_LIBCURL],
+-[## curl-config might not match the installed libcurl,
+-## so we allow the user to set CURL_CPPFLAGS, CURL_LIBS
+-## and check the version directly rather than by curl-config --checkfor
+-AC_PATH_PROG(CURL_CONFIG, curl-config)
+-if test -n "${CURL_CONFIG}"; then
+-  echo "checking libcurl version ..." \
+-    `${CURL_CONFIG} --version | sed -e 's,^[[^0-9]]*,,'`
+-  if test -z "${CURL_CPPFLAGS}"; then
+-    CURL_CPPFLAGS=`${CURL_CONFIG} --cflags`
++[## Prefer to use pkg-config, since it distinguishes between direct and
++## indirect library dependencies. The build only needs the direct ones.
++if test -n "${PKGCONF}"; then
++  if "${PKGCONF}" --exists libcurl; then
++    echo "checking libcurl version ..." \
++      `${PKGCONF} --modversion libcurl`
++    if test -z "${CURL_CPPFLAGS}"; then
++      CURL_CPPFLAGS=`${PKGCONF} --cflags libcurl`
++    fi
++    ## This should be correct for a static-only build, user will
++    ## need to override to specify static linking (see config.site)
++    if test -z "${CURL_LIBS}"; then
++      CURL_LIBS=`${PKGCONF} --libs libcurl`
++    fi
+   fi
+-  ## This should be correct for a static-only build, user will
+-  ## need to override to specify static linking (see config.site)
+-  if test -z "${CURL_LIBS}"; then
+-    CURL_LIBS=`${CURL_CONFIG} --libs`
++else
++  ## curl-config might not match the installed libcurl,
++  ## so we allow the user to set CURL_CPPFLAGS, CURL_LIBS
++  ## and check the version directly rather than by curl-config --checkfor
++  AC_PATH_PROG(CURL_CONFIG, curl-config)
++  if test -n "${CURL_CONFIG}"; then
++    echo "checking libcurl version ..." \
++      `${CURL_CONFIG} --version | sed -e 's,^[[^0-9]]*,,'`
++    if test -z "${CURL_CPPFLAGS}"; then
++      CURL_CPPFLAGS=`${CURL_CONFIG} --cflags`
++    fi
++    ## This should be correct for a static-only build, user will
++    ## need to override to specify static linking (see config.site)
++    if test -z "${CURL_LIBS}"; then
++      CURL_LIBS=`${CURL_CONFIG} --libs`
++    fi
+   fi
+ fi
+ r_save_CPPFLAGS="${CPPFLAGS}"
