@@ -70,21 +70,15 @@ Signed-off-by: Arjan van de Ven <arjan@linux.intel.com>
  #ifdef TESTING_WRITE_BARRIER
  # define PROTECTCHECK
  #endif
-@@ -1027,11 +1071,11 @@
+@@ -1052,7 +1052,7 @@
+ 		R_GenHeap[node_class].AllocCount--;
+ 		if (node_class == LARGE_NODE_CLASS) {
  		    R_LargeVallocSize -= size;
- #ifdef LONG_VECTOR_SUPPORT
- 		    if (IS_LONG_VEC(s))
--			free(((char *) s) - sizeof(R_long_vec_hdr_t));
-+			free_wrapper(((char *) s) - sizeof(R_long_vec_hdr_t));
- 		    else
--			free(s);
-+			free_wrapper(s);
- #else
 -		    free(s);
 +		    free_wrapper(s);
- #endif
  		} else {
- #ifdef LONG_VECTOR_SUPPORT
+ 		    custom_node_free(s);
+ 		}
 @@ -2571,16 +2615,16 @@
      old_R_VSize = R_VSize;
  
