@@ -23,8 +23,8 @@ Signed-off-by: Arjan van de Ven <arjan@linux.intel.com>
  static Rboolean R_in_gc = FALSE;
  int R_gc_running() { return R_in_gc; }
  
-+
-+/* 1 slot malloc cache + wrappers */
++#include <malloc.h>
++/* 2 slot malloc cache + wrappers */
 +static void *malloc_cache_entry1;
 +static unsigned long malloc_cache_size1;
 +static void *malloc_cache_entry2;
@@ -50,7 +50,7 @@ Signed-off-by: Arjan van de Ven <arjan@linux.intel.com>
 +   return malloc(size);
 +}
 +
-+static void * free_wrapper(void *ptr)
++static void free_wrapper(void *ptr)
 +{
 +  malloc_cache_ptr = (malloc_cache_ptr + 1) & 1;
 +
