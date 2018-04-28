@@ -1,6 +1,6 @@
 Name     : R
 Version  : 3.5.0
-Release  : 102
+Release  : 103
 URL      : http://cran.cnr.berkeley.edu/src/base/R-3/R-3.5.0.tar.gz
 Source0  : http://cran.cnr.berkeley.edu/src/base/R-3/R-3.5.0.tar.gz
 Summary  : Simple Package with NameSpace and S4 Methods and Classes
@@ -111,7 +111,7 @@ export CXXFLAGS="$CXXFLAGS -O3 -falign-functions=32 -fno-semantic-interposition 
 export SHLIB_LDFLAGS="-g"
 export SHLIB_CXXLDFLAGS="-g"
 
-%reconfigure --disable-static --without-x --with-system-zlib --with-system-bzlib --with-system-pcre --with-system-xz --enable-BLAS-shlib --enable-R-shlib --with-blas="-lopenblas" --with-cairo --enable-lto
+%reconfigure --disable-static --without-x --with-system-zlib --with-system-bzlib --with-system-pcre --with-system-xz --enable-BLAS-shlib --enable-R-shlib --with-blas="-lopenblas" --with-cairo --enable-lto --disable-long-double
 make V=1  %{?_smp_mflags}
 
 pushd ../R-3.5.0-avx2
@@ -120,7 +120,7 @@ export FCFLAGS="$CFLAGS -march=haswell -flto=12 "
 export FFLAGS="$CFLAGS -march=haswell -flto=12 "
 export CXXFLAGS="$CXXFLAGS -march=haswell -flto=12 "
 
-%reconfigure --disable-static --without-x --with-system-zlib --with-system-bzlib --with-system-pcre --with-system-xz --enable-BLAS-shlib --enable-R-shlib --with-blas="-lopenblas" --with-cairo --enable-lto
+%reconfigure --disable-static --without-x --with-system-zlib --with-system-bzlib --with-system-pcre --with-system-xz --enable-BLAS-shlib --enable-R-shlib --with-blas="-lopenblas" --with-cairo --enable-lto --disable-long-double
 make V=1  %{?_smp_mflags}
 popd
 
@@ -130,7 +130,7 @@ popd
 #export FFLAGS="$CFLAGS -march=skylake-avx512 -flto=12 "
 #export CXXFLAGS="$CXXFLAGS -march=skylake-avx512 -flto=12 "
 
-#%reconfigure --disable-static --without-x --with-system-zlib --with-system-bzlib --with-system-pcre --with-system-xz --enable-BLAS-shlib --enable-R-shlib --with-blas="-lopenblas" --with-cairo --enable-lto
+#%reconfigure --disable-static --without-x --with-system-zlib --with-system-bzlib --with-system-pcre --with-system-xz --enable-BLAS-shlib --enable-R-shlib --with-blas="-lopenblas" --with-cairo --enable-lto --disable-long-double
 #make V=1  %{?_smp_mflags} || :
 #popd
 
