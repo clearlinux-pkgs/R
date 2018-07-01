@@ -28,11 +28,13 @@ BuildRequires : pango-dev
 BuildRequires : pcre-dev
 BuildRequires : readline-dev
 BuildRequires : tcl-dev
+BuildRequires : tk-dev
 BuildRequires : texinfo
 BuildRequires : tzdata
 BuildRequires : util-linux
 BuildRequires : xz-dev
 BuildRequires : zip
+BuildRequires : pkgconfig(x11) pkgconfig(ice) pkgconfig(sm) pkgconfig(xext) gtk3-dev libxcb-dev xorgproto-dev pkgconfig(xi) libXt-dev 
 Patch1: malloc_cache.patch
 Patch2: vectorizer.patch
 Patch3: avx2.patch
@@ -111,7 +113,7 @@ export CXXFLAGS="$CXXFLAGS -O3 -falign-functions=32 -fno-semantic-interposition 
 export SHLIB_LDFLAGS="-g"
 export SHLIB_CXXLDFLAGS="-g"
 
-%reconfigure --disable-static --without-x --with-system-zlib --with-system-bzlib --with-system-pcre --with-system-xz --enable-BLAS-shlib --enable-R-shlib --with-blas="-lopenblas" --with-cairo --enable-lto --disable-long-double
+%reconfigure --disable-static --with-system-zlib --with-system-bzlib --with-system-pcre --with-system-xz --enable-BLAS-shlib --enable-R-shlib --with-blas="-lopenblas" --with-cairo --enable-lto --disable-long-double
 make V=1  %{?_smp_mflags}
 
 pushd ../R-3.5.0-avx2
@@ -120,7 +122,7 @@ export FCFLAGS="$CFLAGS -march=haswell -flto=12 "
 export FFLAGS="$CFLAGS -march=haswell -flto=12 "
 export CXXFLAGS="$CXXFLAGS -march=haswell -flto=12 "
 
-%reconfigure --disable-static --without-x --with-system-zlib --with-system-bzlib --with-system-pcre --with-system-xz --enable-BLAS-shlib --enable-R-shlib --with-blas="-lopenblas" --with-cairo --enable-lto --disable-long-double
+%reconfigure --disable-static --with-system-zlib --with-system-bzlib --with-system-pcre --with-system-xz --enable-BLAS-shlib --enable-R-shlib --with-blas="-lopenblas" --with-cairo --enable-lto --disable-long-double
 make V=1  %{?_smp_mflags}
 popd
 
@@ -130,7 +132,7 @@ popd
 #export FFLAGS="$CFLAGS -march=skylake-avx512 -flto=12 "
 #export CXXFLAGS="$CXXFLAGS -march=skylake-avx512 -flto=12 "
 
-#%reconfigure --disable-static --without-x --with-system-zlib --with-system-bzlib --with-system-pcre --with-system-xz --enable-BLAS-shlib --enable-R-shlib --with-blas="-lopenblas" --with-cairo --enable-lto --disable-long-double
+#%reconfigure --disable-static --with-system-zlib --with-system-bzlib --with-system-pcre --with-system-xz --enable-BLAS-shlib --enable-R-shlib --with-blas="-lopenblas" --with-cairo --enable-lto --disable-long-double
 #make V=1  %{?_smp_mflags} || :
 #popd
 
@@ -1690,6 +1692,9 @@ sed -i -e "s/-march=haswell/-march=native/g" %{buildroot}/usr/lib64/R/etc/Makeco
 /usr/lib64/R/library/utils/libs/utils.so
 /usr/lib64/R/modules/internet.so
 /usr/lib64/R/modules/lapack.so
+/usr/lib64/R/modules/R_X11.so
+/usr/lib64/R/modules/R_de.so
+
 #/usr/lib64/R/lib/haswell/avx512_1/libR.so
 #/usr/lib64/R/lib/haswell/avx512_1/libRblas.so
 #/usr/lib64/R/lib/haswell/avx512_1/libRlapack.so
