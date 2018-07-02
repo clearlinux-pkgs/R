@@ -1149,7 +1149,10 @@ sed -i -e "s/-march=haswell/-march=native/g" %{buildroot}/usr/lib64/R/etc/Makeco
 /usr/lib64/R/library/survival/data/Rdata.rdb
 /usr/lib64/R/library/survival/data/Rdata.rds
 /usr/lib64/R/library/survival/data/Rdata.rdx
-/usr/lib64/R/library/survival/data/datalist
+/usr/lib64/R/library/survival/doc/population.R
+/usr/lib64/R/library/survival/doc/population.Rnw
+/usr/lib64/R/library/survival/doc/population.pdf
+#/usr/lib64/R/library/survival/data/datalist
 /usr/lib64/R/library/survival/doc/adjcurve.R
 /usr/lib64/R/library/survival/doc/adjcurve.Rnw
 /usr/lib64/R/library/survival/doc/adjcurve.pdf
