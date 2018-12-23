@@ -1594,7 +1594,9 @@ sed -i -e "s/-march=haswell/-march=native/g" %{buildroot}/usr/lib64/R/etc/Makeco
 /usr/lib64/R/library/foreign/files/testdata.sav
 /usr/lib64/R/include/R_ext/Altrep.h
 /usr/lib64/R/library/cluster/test-tools.R
-
+/usr/lib64/R/library/survival/doc/concordance.R
+/usr/lib64/R/library/survival/doc/concordance.Rnw
+/usr/lib64/R/library/survival/doc/concordance.pdf
 %files bin
 %defattr(-,root,root,-)
 /usr/bin/R
