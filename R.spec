@@ -161,7 +161,7 @@ popd
 
 
 %make_install
-sed -i -e "s/-march=haswell/-march=westmere/g" %{buildroot}/usr/lib64/R/etc/Makeconf
+sed -i -e "s/-march=haswell//g" %{buildroot}/usr/lib64/R/etc/Makeconf
 ## make_install_append content
 #sed -i -e "s/\-fno-semantic-interposition/-fno-semantic-interposition -march=native/" %{buildroot}/usr/lib64/R/etc/Makeconf
 ## make_install_append end
