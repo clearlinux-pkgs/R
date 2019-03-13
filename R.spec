@@ -1,6 +1,6 @@
 Name     : R
 Version  : 3.5.2
-Release  : 114
+Release  : 115
 URL      : http://cran.cnr.berkeley.edu/src/base/R-3/R-3.5.2.tar.gz
 Source0  : http://cran.cnr.berkeley.edu/src/base/R-3/R-3.5.2.tar.gz
 Summary  : Simple Package with NameSpace and S4 Methods and Classes
@@ -93,7 +93,7 @@ lib components for the R package.
 
 pushd ..
 cp -a R-3.5.2 R-3.5.2-avx2
-#cp -a R-3.5.2 R-3.5.2-avx512
+cp -a R-3.5.2 R-3.5.2-avx512
 popd
 
 %build
@@ -126,15 +126,15 @@ export CXXFLAGS="$CXXFLAGS -march=haswell -flto=12 "
 make V=1  %{?_smp_mflags}
 popd
 
-#pushd ../R-3.5.2-avx512
-#export CFLAGS="$CFLAGS -march=skylake-avx512 -flto=12 "
-#export FCFLAGS="$CFLAGS -march=skylake-avx512 -flto=12 "
-#export FFLAGS="$CFLAGS -march=skylake-avx512 -flto=12 "
-#export CXXFLAGS="$CXXFLAGS -march=skylake-avx512 -flto=12 "
+pushd ../R-3.5.2-avx512
+export CFLAGS="$CFLAGS -march=skylake-avx512 -flto=12 "
+export FCFLAGS="$CFLAGS -march=skylake-avx512 -flto=12 "
+export FFLAGS="$CFLAGS -march=skylake-avx512 -flto=12 "
+export CXXFLAGS="$CXXFLAGS -march=skylake-avx512 -flto=12 "
 
-#%reconfigure --disable-static --with-system-zlib --with-system-bzlib --with-system-pcre --with-system-xz --enable-BLAS-shlib --enable-R-shlib --with-blas="-lopenblas" --with-cairo --enable-lto --disable-long-double
-#make V=1  %{?_smp_mflags} || :
-#popd
+%reconfigure --disable-static --with-system-zlib --with-system-bzlib --with-system-pcre --with-system-xz --enable-BLAS-shlib --enable-R-shlib --with-blas="-lopenblas" --with-cairo --enable-lto --disable-long-double
+make V=1  %{?_smp_mflags}
+popd
 
 
 
@@ -142,13 +142,13 @@ popd
 export SOURCE_DATE_EPOCH=1496604342
 rm -rf %{buildroot}
 
-#pushd ../R-3.5.2-avx512
-#%make_install || :
-#mkdir -p %{buildroot}/usr/lib64/R/lib/haswell/avx512_1
-#mv %{buildroot}/usr/lib64/R/lib/*.so %{buildroot}/usr/lib64/R/lib/haswell/avx512_1
-#for i in `find %{buildroot}/usr/lib64/R/library/ -name "*.so"`; do mv $i $i.avx512 ; done
-#rm `find %{buildroot} -type f | grep -v avx512 | grep -v haswell`  || :
-#popd
+pushd ../R-3.5.2-avx512
+%make_install
+mkdir -p %{buildroot}/usr/lib64/R/lib/haswell/avx512_1
+mv %{buildroot}/usr/lib64/R/lib/*.so %{buildroot}/usr/lib64/R/lib/haswell/avx512_1
+for i in `find %{buildroot}/usr/lib64/R/library/ -name "*.so"`; do mv $i $i.avx512 ; done
+rm `find %{buildroot} -type f | grep -v avx512 | grep -v haswell`  || :
+popd
 
 pushd ../R-3.5.2-avx2
 %make_install
@@ -1597,6 +1597,7 @@ sed -i -e "s/-march=haswell//g" %{buildroot}/usr/lib64/R/etc/Makeconf
 /usr/lib64/R/library/survival/doc/concordance.R
 /usr/lib64/R/library/survival/doc/concordance.Rnw
 /usr/lib64/R/library/survival/doc/concordance.pdf
+
 %files bin
 %defattr(-,root,root,-)
 /usr/bin/R
@@ -1671,7 +1672,6 @@ sed -i -e "s/-march=haswell//g" %{buildroot}/usr/lib64/R/etc/Makeconf
 /usr/lib64/R/lib/haswell/libRblas.so
 /usr/lib64/R/lib/haswell/libRlapack.so
 /usr/lib64/R/library/*/libs/*.so.avx2
-#/usr/lib64/R/library/*/libs/*.so.avx512
 /usr/lib64/R/library/KernSmooth/libs/KernSmooth.so
 /usr/lib64/R/library/MASS/libs/MASS.so
 /usr/lib64/R/library/Matrix/libs/Matrix.so
@@ -1700,6 +1700,7 @@ sed -i -e "s/-march=haswell//g" %{buildroot}/usr/lib64/R/etc/Makeconf
 /usr/lib64/R/modules/R_X11.so
 /usr/lib64/R/modules/R_de.so
 
-#/usr/lib64/R/lib/haswell/avx512_1/libR.so
-#/usr/lib64/R/lib/haswell/avx512_1/libRblas.so
-#/usr/lib64/R/lib/haswell/avx512_1/libRlapack.so
+/usr/lib64/R/lib/haswell/avx512_1/libR.so
+/usr/lib64/R/lib/haswell/avx512_1/libRblas.so
+/usr/lib64/R/lib/haswell/avx512_1/libRlapack.so
+/usr/lib64/R/library/*/libs/*.so.avx512
