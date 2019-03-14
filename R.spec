@@ -1,6 +1,6 @@
 Name     : R
 Version  : 3.5.2
-Release  : 115
+Release  : 116
 URL      : http://cran.cnr.berkeley.edu/src/base/R-3/R-3.5.2.tar.gz
 Source0  : http://cran.cnr.berkeley.edu/src/base/R-3/R-3.5.2.tar.gz
 Summary  : Simple Package with NameSpace and S4 Methods and Classes
@@ -83,6 +83,13 @@ lib components for the R package.
 
 
 %prep
+
+# Package cannot be built on non-AVX512 capable systems at the moment
+if ! grep -qP '^flags\t+:.*\bavx512vl\b' /proc/cpuinfo; then
+  echo "ERROR: AVX512 support required for building. The \"avx512vl\" feature flag is missing."
+  exit 1
+fi
+
 %setup -q -n R-3.5.2
 %patch1 -p1
 %patch2 -p1
