@@ -41,6 +41,7 @@ Patch3: avx2.patch
 Patch4: no-force-gc.patch
 Patch5: macro-dirs.patch
 Patch6: pkgconfig-curl.patch
+Patch7: 0001-Add-Rbench-as-PGO-profiling-workload.patch
 
 %description
 (See "doc/FAQ" and "doc/RESOURCES" for more detailed information
@@ -97,10 +98,12 @@ fi
 %patch4 -p1
 %patch5 -p1
 %patch6 -p1
+%patch7 -p1
 
 pushd ..
 cp -a R-3.5.3 R-3.5.3-avx2
 cp -a R-3.5.3 R-3.5.3-avx512
+cp -a R-3.5.3 R-3.5.3-pgo
 popd
 
 %build
@@ -110,40 +113,81 @@ export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
 export SOURCE_DATE_EPOCH=1496604342
 unset LD_AS_NEEDED
-export CFLAGS="$CFLAGS -O3 -falign-functions=32 -fno-semantic-interposition -flto=12 "
-export FCFLAGS="$CFLAGS -O3 -falign-functions=32 -fno-semantic-interposition -flto=12 "
-export FFLAGS="$CFLAGS -O3 -falign-functions=32 -fno-semantic-interposition -flto=12 "
-export CXXFLAGS="$CXXFLAGS -O3 -falign-functions=32 -fno-semantic-interposition -flto=12 "
+export CFLAGS_STUB="$CFLAGS -O3 -falign-functions=32 -fno-semantic-interposition -flto=12 "
+export FCFLAGS_STUB="$CFLAGS -O3 -falign-functions=32 -fno-semantic-interposition -flto=12 "
+export FFLAGS_STUB="$CFLAGS -O3 -falign-functions=32 -fno-semantic-interposition -flto=12 "
+export CXXFLAGS_STUB="$CXXFLAGS -O3 -falign-functions=32 -fno-semantic-interposition -flto=12 "
 
 # Ensure that C and C++ shared libraries contain debuginfo by adding -g to
 # linker command lines. Note that -g is appended to the default linker flags.
 export SHLIB_LDFLAGS="-g"
 export SHLIB_CXXLDFLAGS="-g"
 
+export PGO_GEN="-fprofile-generate -fprofile-dir=/var/tmp/pgo "
+export PGO_USE="-fprofile-use -fprofile-dir=/var/tmp/pgo -fprofile-correction "
+export PGO_GEN_AVX2="-fprofile-generate -fprofile-dir=/var/tmp/pgo_avx2 "
+export PGO_USE_AVX2="-fprofile-use -fprofile-dir=/var/tmp/pgo_avx2 -fprofile-correction "
+export PGO_GEN_AVX512="-fprofile-generate -fprofile-dir=/var/tmp/pgo_avx512 "
+export PGO_USE_AVX512="-fprofile-use -fprofile-dir=/var/tmp/pgo_avx512 -fprofile-correction "
+
+pushd ../R-3.5.3-pgo
+export CFLAGS="$CFLAGS_STUB $PGO_GEN"
+export FCFLAGS="$FCFLAGS_STUB $PGO_GEN"
+export FFLAGS="$FFLAGS_STUB $PGO_GEN"
+export CXXFLAGS="$CXXFLAGS_STUB $PGO_GEN"
+%reconfigure --disable-static --with-system-zlib --with-system-bzlib --with-system-pcre --with-system-xz --enable-BLAS-shlib --enable-R-shlib --with-blas="-lopenblas" --with-cairo --enable-lto --disable-long-double
+make V=1  %{?_smp_mflags}
+./bin/Rscript R-benchmark-25/R-benchmark-25.R
+make distclean
+popd
+
+pushd ../R-3.5.3-pgo
+export CFLAGS="$CFLAGS_STUB -march=haswell -flto=12 $PGO_GEN_AVX2"
+export FCFLAGS="$FCFLAGS_STUB -march=haswell -flto=12 $PGO_GEN_AVX2"
+export FFLAGS="$FFLAGS_STUB -march=haswell -flto=12 $PGO_GEN_AVX2"
+export CXXFLAGS="$CXXFLAGS_STUB -march=haswell -flto=12 $PGO_GEN_AVX2"
+%reconfigure --disable-static --with-system-zlib --with-system-bzlib --with-system-pcre --with-system-xz --enable-BLAS-shlib --enable-R-shlib --with-blas="-lopenblas" --with-cairo --enable-lto --disable-long-double
+make V=1  %{?_smp_mflags}
+./bin/Rscript R-benchmark-25/R-benchmark-25.R
+make distclean
+popd
+
+pushd ../R-3.5.3-pgo
+export CFLAGS="$CFLAGS_STUB -march=skylake-avx512 -flto=12 $PGO_GEN_AVX512"
+export FCFLAGS="$FCFLAGS_STUB -march=skylake-avx512 -flto=12 $PGO_GEN_AVX512"
+export FFLAGS="$FFLAGS_STUB -march=skylake-avx512 -flto=12 $PGO_GEN_AVX512"
+export CXXFLAGS="$CXXFLAGS_STUB -march=skylake-avx512 -flto=12 $PGO_GEN_AVX512"
+%reconfigure --disable-static --with-system-zlib --with-system-bzlib --with-system-pcre --with-system-xz --enable-BLAS-shlib --enable-R-shlib --with-blas="-lopenblas" --with-cairo --enable-lto --disable-long-double
+make V=1  %{?_smp_mflags}
+./bin/Rscript R-benchmark-25/R-benchmark-25.R
+make distclean
+popd
+
+### PGO Phase II
+export CFLAGS="$CFLAGS_STUB $PGO_USE"
+export FCFLAGS="$FCFLAGS_STUB $PGO_USE"
+export FFLAGS="$FFLAGS_STUB $PGO_USE"
+export CXXFLAGS="$CXXFLAGS_STUB $PGO_USE"
 %reconfigure --disable-static --with-system-zlib --with-system-bzlib --with-system-pcre --with-system-xz --enable-BLAS-shlib --enable-R-shlib --with-blas="-lopenblas" --with-cairo --enable-lto --disable-long-double
 make V=1  %{?_smp_mflags}
 
 pushd ../R-3.5.3-avx2
-export CFLAGS="$CFLAGS -march=haswell -flto=12 "
-export FCFLAGS="$CFLAGS -march=haswell -flto=12 "
-export FFLAGS="$CFLAGS -march=haswell -flto=12 "
-export CXXFLAGS="$CXXFLAGS -march=haswell -flto=12 "
-
+export CFLAGS="$CFLAGS_STUB -march=haswell -flto=12 $PGO_USE_AVX2"
+export FCFLAGS="$FCFLAGS_STUB -march=haswell -flto=12 $PGO_USE_AVX2"
+export FFLAGS="$FFLAGS_STUB -march=haswell -flto=12 $PGO_USE_AVX2"
+export CXXFLAGS="$CXXFLAGS_STUB -march=haswell -flto=12 $PGO_USE_AVX2"
 %reconfigure --disable-static --with-system-zlib --with-system-bzlib --with-system-pcre --with-system-xz --enable-BLAS-shlib --enable-R-shlib --with-blas="-lopenblas" --with-cairo --enable-lto --disable-long-double
 make V=1  %{?_smp_mflags}
 popd
 
 pushd ../R-3.5.3-avx512
-export CFLAGS="$CFLAGS -march=skylake-avx512 -flto=12 "
-export FCFLAGS="$CFLAGS -march=skylake-avx512 -flto=12 "
-export FFLAGS="$CFLAGS -march=skylake-avx512 -flto=12 "
-export CXXFLAGS="$CXXFLAGS -march=skylake-avx512 -flto=12 "
-
+export CFLAGS="$CFLAGS_STUB -march=skylake-avx512 -flto=12 $PGO_USE_AVX512"
+export FCFLAGS="$FCFLAGS_STUB -march=skylake-avx512 -flto=12 $PGO_USE_AVX512"
+export FFLAGS="$FFLAGS_STUB -march=skylake-avx512 -flto=12 $PGO_USE_AVX512"
+export CXXFLAGS="$CXXFLAGS_STUB -march=skylake-avx512 -flto=12 $PGO_USE_AVX512"
 %reconfigure --disable-static --with-system-zlib --with-system-bzlib --with-system-pcre --with-system-xz --enable-BLAS-shlib --enable-R-shlib --with-blas="-lopenblas" --with-cairo --enable-lto --disable-long-double
 make V=1  %{?_smp_mflags}
 popd
-
-
 
 %install
 export SOURCE_DATE_EPOCH=1496604342
