@@ -1711,6 +1711,11 @@ sed -i -e "s/-march=haswell//g" %{buildroot}/usr/lib64/R/etc/Makeconf
 /usr/lib64/R/doc/manual/R-intro.html
 /usr/lib64/R/doc/manual/R-ints.html
 /usr/lib64/R/doc/manual/R-lang.html
+/usr/lib64/R/library/rpart/help/figures/rpart.png
+/usr/lib64/R/library/survival/doc/survival.R
+/usr/lib64/R/library/survival/doc/survival.Rnw
+/usr/lib64/R/library/survival/doc/survival.pdf
+/usr/lib64/R/library/survival/help/figures/logo.png
 
 %files lib
 %defattr(-,root,root,-)
@@ -1753,3 +1758,4 @@ sed -i -e "s/-march=haswell//g" %{buildroot}/usr/lib64/R/etc/Makeconf
 /usr/lib64/R/lib/haswell/avx512_1/libRblas.so
 /usr/lib64/R/lib/haswell/avx512_1/libRlapack.so
 /usr/lib64/R/library/*/libs/*.so.avx512
+
