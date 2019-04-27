@@ -1,8 +1,8 @@
 Name     : R
-Version  : 3.5.3
+Version  : 3.6.0
 Release  : 118
-URL      : http://cran.cnr.berkeley.edu/src/base/R-3/R-3.5.3.tar.gz
-Source0  : http://cran.cnr.berkeley.edu/src/base/R-3/R-3.5.3.tar.gz
+URL      : http://cran.cnr.berkeley.edu/src/base/R-3/R-3.6.0.tar.gz
+Source0  : http://cran.cnr.berkeley.edu/src/base/R-3/R-3.6.0.tar.gz
 Summary  : Simple Package with NameSpace and S4 Methods and Classes
 Group    : Development/Tools
 License  : BSD-2-Clause BSD-3-Clause GPL-2.0 GPL-2.0+
@@ -40,7 +40,6 @@ Patch2: vectorizer.patch
 Patch3: avx2.patch
 Patch4: no-force-gc.patch
 Patch5: macro-dirs.patch
-Patch6: pkgconfig-curl.patch
 Patch7: 0001-Add-Rbench-as-PGO-profiling-workload.patch
 
 %description
@@ -91,19 +90,18 @@ if ! grep -qP '^flags\t+:.*\bavx512vl\b' /proc/cpuinfo; then
   exit 1
 fi
 
-%setup -q -n R-3.5.3
+%setup -q -n R-3.6.0
 %patch1 -p1
 %patch2 -p1
 %patch3 -p1
 %patch4 -p1
 %patch5 -p1
-%patch6 -p1
 %patch7 -p1
 
 pushd ..
-cp -a R-3.5.3 R-3.5.3-avx2
-cp -a R-3.5.3 R-3.5.3-avx512
-cp -a R-3.5.3 R-3.5.3-pgo
+cp -a R-3.6.0 R-3.6.0-avx2
+cp -a R-3.6.0 R-3.6.0-avx512
+cp -a R-3.6.0 R-3.6.0-pgo
 popd
 
 %build
@@ -130,7 +128,7 @@ export PGO_USE_AVX2="-fprofile-use -fprofile-dir=/var/tmp/pgo_avx2 -fprofile-cor
 export PGO_GEN_AVX512="-fprofile-generate -fprofile-dir=/var/tmp/pgo_avx512 "
 export PGO_USE_AVX512="-fprofile-use -fprofile-dir=/var/tmp/pgo_avx512 -fprofile-correction "
 
-pushd ../R-3.5.3-pgo
+pushd ../R-3.6.0-pgo
 export CFLAGS="$CFLAGS_STUB $PGO_GEN"
 export FCFLAGS="$FCFLAGS_STUB $PGO_GEN"
 export FFLAGS="$FFLAGS_STUB $PGO_GEN"
@@ -141,7 +139,7 @@ make V=1  %{?_smp_mflags}
 make distclean
 popd
 
-pushd ../R-3.5.3-pgo
+pushd ../R-3.6.0-pgo
 export CFLAGS="$CFLAGS_STUB -march=haswell -flto=12 $PGO_GEN_AVX2"
 export FCFLAGS="$FCFLAGS_STUB -march=haswell -flto=12 $PGO_GEN_AVX2"
 export FFLAGS="$FFLAGS_STUB -march=haswell -flto=12 $PGO_GEN_AVX2"
@@ -152,7 +150,7 @@ make V=1  %{?_smp_mflags}
 make distclean
 popd
 
-pushd ../R-3.5.3-pgo
+pushd ../R-3.6.0-pgo
 export CFLAGS="$CFLAGS_STUB -march=skylake-avx512 -flto=12 $PGO_GEN_AVX512"
 export FCFLAGS="$FCFLAGS_STUB -march=skylake-avx512 -flto=12 $PGO_GEN_AVX512"
 export FFLAGS="$FFLAGS_STUB -march=skylake-avx512 -flto=12 $PGO_GEN_AVX512"
@@ -171,7 +169,7 @@ export CXXFLAGS="$CXXFLAGS_STUB $PGO_USE"
 %reconfigure --disable-static --with-system-zlib --with-system-bzlib --with-system-pcre --with-system-xz --enable-BLAS-shlib --enable-R-shlib --with-blas="-lopenblas" --with-cairo --enable-lto --disable-long-double
 make V=1  %{?_smp_mflags}
 
-pushd ../R-3.5.3-avx2
+pushd ../R-3.6.0-avx2
 export CFLAGS="$CFLAGS_STUB -march=haswell -flto=12 $PGO_USE_AVX2"
 export FCFLAGS="$FCFLAGS_STUB -march=haswell -flto=12 $PGO_USE_AVX2"
 export FFLAGS="$FFLAGS_STUB -march=haswell -flto=12 $PGO_USE_AVX2"
@@ -180,7 +178,7 @@ export CXXFLAGS="$CXXFLAGS_STUB -march=haswell -flto=12 $PGO_USE_AVX2"
 make V=1  %{?_smp_mflags}
 popd
 
-pushd ../R-3.5.3-avx512
+pushd ../R-3.6.0-avx512
 export CFLAGS="$CFLAGS_STUB -march=skylake-avx512 -flto=12 $PGO_USE_AVX512"
 export FCFLAGS="$FCFLAGS_STUB -march=skylake-avx512 -flto=12 $PGO_USE_AVX512"
 export FFLAGS="$FFLAGS_STUB -march=skylake-avx512 -flto=12 $PGO_USE_AVX512"
@@ -193,7 +191,7 @@ popd
 export SOURCE_DATE_EPOCH=1496604342
 rm -rf %{buildroot}
 
-pushd ../R-3.5.3-avx512
+pushd ../R-3.6.0-avx512
 %make_install
 mkdir -p %{buildroot}/usr/lib64/R/lib/haswell/avx512_1
 mv %{buildroot}/usr/lib64/R/lib/*.so %{buildroot}/usr/lib64/R/lib/haswell/avx512_1
@@ -201,7 +199,7 @@ for i in `find %{buildroot}/usr/lib64/R/library/ -name "*.so"`; do mv $i $i.avx5
 rm `find %{buildroot} -type f | grep -v avx512 | grep -v haswell`  || :
 popd
 
-pushd ../R-3.5.3-avx2
+pushd ../R-3.6.0-avx2
 %make_install
 mkdir -p %{buildroot}/usr/lib64/R/lib/haswell/
 mv %{buildroot}/usr/lib64/R/lib/*.so %{buildroot}/usr/lib64/R/lib/haswell/
@@ -240,7 +238,7 @@ sed -i -e "s/-march=haswell//g" %{buildroot}/usr/lib64/R/etc/Makeconf
 /usr/lib64/R/bin/check
 /usr/lib64/R/bin/config
 /usr/lib64/R/bin/exec/R
-/usr/lib64/R/bin/f77_f2c
+#/usr/lib64/R/bin/f77_f2c
 /usr/lib64/R/bin/javareconf
 /usr/lib64/R/bin/libtool
 /usr/lib64/R/bin/mkinstalldirs
