@@ -34,7 +34,15 @@ BuildRequires : tzdata
 BuildRequires : util-linux
 BuildRequires : xz-dev
 BuildRequires : zip
-BuildRequires : pkgconfig(x11) pkgconfig(ice) pkgconfig(sm) pkgconfig(xext) gtk3-dev libxcb-dev xorgproto-dev pkgconfig(xi) libXt-dev 
+BuildRequires : pkgconfig(x11)
+BuildRequires : pkgconfig(ice)
+BuildRequires : pkgconfig(sm)
+BuildRequires : pkgconfig(xext)
+BuildRequires : gtk3-dev
+BuildRequires : libxcb-dev
+BuildRequires : xorgproto-dev
+BuildRequires : pkgconfig(xi)
+BuildRequires : libXt-dev
 Patch1: malloc_cache.patch
 Patch2: vectorizer.patch
 Patch3: avx2.patch
