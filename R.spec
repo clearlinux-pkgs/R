@@ -43,6 +43,11 @@ BuildRequires : libxcb-dev
 BuildRequires : xorgproto-dev
 BuildRequires : pkgconfig(xi)
 BuildRequires : libXt-dev
+# R constructs a test program for tcltk support using the link flags listed in
+# /usr/lib64/tkConfig.sh (see tk package), but the associated libraries are
+# listed under Libs.private in tk.pc, so they should be private to tk... Until
+# we resolve this packaging issue, require libXss for the R build.
+BuildRequires : pkgconfig(xscrnsaver)
 Patch1: malloc_cache.patch
 Patch2: vectorizer.patch
 Patch3: avx2.patch
@@ -1253,6 +1258,8 @@ sed -i -e "s/-march=haswell//g" %{buildroot}/usr/lib64/R/etc/Makeconf
 /usr/lib64/R/library/tcltk/Meta/package.rds
 /usr/lib64/R/library/tcltk/NAMESPACE
 /usr/lib64/R/library/tcltk/R/tcltk
+/usr/lib64/R/library/tcltk/R/tcltk.rdb
+/usr/lib64/R/library/tcltk/R/tcltk.rdx
 /usr/lib64/R/library/tcltk/demo/tkcanvas.R
 /usr/lib64/R/library/tcltk/demo/tkdensity.R
 /usr/lib64/R/library/tcltk/demo/tkfaq.R
@@ -1755,6 +1762,7 @@ sed -i -e "s/-march=haswell//g" %{buildroot}/usr/lib64/R/etc/Makeconf
 /usr/lib64/R/library/splines/libs/splines.so
 /usr/lib64/R/library/stats/libs/stats.so
 /usr/lib64/R/library/survival/libs/survival.so
+/usr/lib64/R/library/tcltk/libs/tcltk.so
 /usr/lib64/R/library/tools/libs/tools.so
 /usr/lib64/R/library/utils/libs/utils.so
 /usr/lib64/R/modules/internet.so
