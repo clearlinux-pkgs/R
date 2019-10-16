@@ -1,6 +1,6 @@
 Name     : R
 Version  : 3.6.1
-Release  : 123
+Release  : 124
 URL      : http://cran.cnr.berkeley.edu/src/base/R-3/R-3.6.1.tar.gz
 Source0  : http://cran.cnr.berkeley.edu/src/base/R-3/R-3.6.1.tar.gz
 Summary  : Simple Package with NameSpace and S4 Methods and Classes
