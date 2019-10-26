@@ -1,6 +1,6 @@
 Name     : R
 Version  : 3.6.1
-Release  : 124
+Release  : 125
 URL      : http://cran.cnr.berkeley.edu/src/base/R-3/R-3.6.1.tar.gz
 Source0  : http://cran.cnr.berkeley.edu/src/base/R-3/R-3.6.1.tar.gz
 Summary  : Simple Package with NameSpace and S4 Methods and Classes
@@ -9,6 +9,7 @@ License  : BSD-2-Clause BSD-3-Clause GPL-2.0 GPL-2.0+
 Requires: R-bin
 Requires: R-lib
 Requires: R-doc
+Requires: which
 BuildRequires : bison
 BuildRequires : bzip2-dev
 BuildRequires : cairo-dev
