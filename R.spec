@@ -1,8 +1,8 @@
 Name     : R
-Version  : 3.6.1
+Version  : 3.6.2
 Release  : 125
-URL      : http://cran.cnr.berkeley.edu/src/base/R-3/R-3.6.1.tar.gz
-Source0  : http://cran.cnr.berkeley.edu/src/base/R-3/R-3.6.1.tar.gz
+URL      : http://cran.cnr.berkeley.edu/src/base/R-3/R-3.6.2.tar.gz
+Source0  : http://cran.cnr.berkeley.edu/src/base/R-3/R-3.6.2.tar.gz
 Summary  : Simple Package with NameSpace and S4 Methods and Classes
 Group    : Development/Tools
 License  : BSD-2-Clause BSD-3-Clause GPL-2.0 GPL-2.0+
@@ -54,7 +54,7 @@ Patch2: vectorizer.patch
 Patch3: avx2.patch
 Patch4: no-force-gc.patch
 Patch5: macro-dirs.patch
-Patch7: 0001-Add-Rbench-as-PGO-profiling-workload.patch
+Patch6: 0001-Add-Rbench-as-PGO-profiling-workload.patch
 
 %description
 (See "doc/FAQ" and "doc/RESOURCES" for more detailed information
@@ -104,18 +104,18 @@ if ! grep -qP '^flags\t+:.*\bavx512vl\b' /proc/cpuinfo; then
   exit 1
 fi
 
-%setup -q -n R-3.6.1
+%setup -q
 %patch1 -p1
 %patch2 -p1
 %patch3 -p1
 %patch4 -p1
 %patch5 -p1
-%patch7 -p1
+%patch6 -p1
 
 pushd ..
-cp -a R-3.6.1 R-3.6.1-avx2
-cp -a R-3.6.1 R-3.6.1-avx512
-cp -a R-3.6.1 R-3.6.1-pgo
+cp -a R-%{version} R-%{version}-avx2
+cp -a R-%{version} R-%{version}-avx512
+cp -a R-%{version} R-%{version}-pgo
 popd
 
 %build
@@ -142,7 +142,7 @@ export PGO_USE_AVX2="-fprofile-use -fprofile-dir=/var/tmp/pgo_avx2 -fprofile-cor
 export PGO_GEN_AVX512="-fprofile-generate -fprofile-dir=/var/tmp/pgo_avx512 "
 export PGO_USE_AVX512="-fprofile-use -fprofile-dir=/var/tmp/pgo_avx512 -fprofile-correction "
 
-pushd ../R-3.6.1-pgo
+pushd ../R-%{version}-pgo
 export CFLAGS="$CFLAGS_STUB $PGO_GEN"
 export FCFLAGS="$FCFLAGS_STUB $PGO_GEN"
 export FFLAGS="$FFLAGS_STUB $PGO_GEN"
@@ -153,7 +153,7 @@ make V=1  %{?_smp_mflags}
 make distclean
 popd
 
-pushd ../R-3.6.1-pgo
+pushd ../R-%{version}-pgo
 export CFLAGS="$CFLAGS_STUB -march=haswell -flto=12 $PGO_GEN_AVX2"
 export FCFLAGS="$FCFLAGS_STUB -march=haswell -flto=12 $PGO_GEN_AVX2"
 export FFLAGS="$FFLAGS_STUB -march=haswell -flto=12 $PGO_GEN_AVX2"
@@ -164,7 +164,7 @@ make V=1  %{?_smp_mflags}
 make distclean
 popd
 
-pushd ../R-3.6.1-pgo
+pushd ../R-%{version}-pgo
 export CFLAGS="$CFLAGS_STUB -march=skylake-avx512 -flto=12 $PGO_GEN_AVX512"
 export FCFLAGS="$FCFLAGS_STUB -march=skylake-avx512 -flto=12 $PGO_GEN_AVX512"
 export FFLAGS="$FFLAGS_STUB -march=skylake-avx512 -flto=12 $PGO_GEN_AVX512"
@@ -183,7 +183,7 @@ export CXXFLAGS="$CXXFLAGS_STUB $PGO_USE"
 %reconfigure --disable-static --with-system-zlib --with-system-bzlib --with-system-pcre --with-system-xz --enable-BLAS-shlib --enable-R-shlib --with-blas="-lopenblas" --with-cairo --enable-lto --disable-long-double
 make V=1  %{?_smp_mflags}
 
-pushd ../R-3.6.1-avx2
+pushd ../R-%{version}-avx2
 export CFLAGS="$CFLAGS_STUB -march=haswell -flto=12 $PGO_USE_AVX2"
 export FCFLAGS="$FCFLAGS_STUB -march=haswell -flto=12 $PGO_USE_AVX2"
 export FFLAGS="$FFLAGS_STUB -march=haswell -flto=12 $PGO_USE_AVX2"
@@ -192,7 +192,7 @@ export CXXFLAGS="$CXXFLAGS_STUB -march=haswell -flto=12 $PGO_USE_AVX2"
 make V=1  %{?_smp_mflags}
 popd
 
-pushd ../R-3.6.1-avx512
+pushd ../R-%{version}-avx512
 export CFLAGS="$CFLAGS_STUB -march=skylake-avx512 -flto=12 $PGO_USE_AVX512"
 export FCFLAGS="$FCFLAGS_STUB -march=skylake-avx512 -flto=12 $PGO_USE_AVX512"
 export FFLAGS="$FFLAGS_STUB -march=skylake-avx512 -flto=12 $PGO_USE_AVX512"
@@ -201,11 +201,12 @@ export CXXFLAGS="$CXXFLAGS_STUB -march=skylake-avx512 -flto=12 $PGO_USE_AVX512"
 make V=1  %{?_smp_mflags}
 popd
 
+
 %install
 export SOURCE_DATE_EPOCH=1496604342
 rm -rf %{buildroot}
 
-pushd ../R-3.6.1-avx512
+pushd ../R-%{version}-avx512
 %make_install
 mkdir -p %{buildroot}/usr/lib64/R/lib/haswell/avx512_1
 mv %{buildroot}/usr/lib64/R/lib/*.so %{buildroot}/usr/lib64/R/lib/haswell/avx512_1
@@ -213,7 +214,7 @@ for i in `find %{buildroot}/usr/lib64/R/library/ -name "*.so"`; do mv $i $i.avx5
 rm `find %{buildroot} -type f | grep -v avx512 | grep -v haswell`  || :
 popd
 
-pushd ../R-3.6.1-avx2
+pushd ../R-%{version}-avx2
 %make_install
 mkdir -p %{buildroot}/usr/lib64/R/lib/haswell/
 mv %{buildroot}/usr/lib64/R/lib/*.so %{buildroot}/usr/lib64/R/lib/haswell/
@@ -221,13 +222,9 @@ for i in `find %{buildroot}/usr/lib64/R/library/ -name "*.so"`; do mv $i $i.avx2
 rm `find %{buildroot} -type f | grep -v avx2 | grep -v avx512 | grep -v haswell`  || :
 popd
 
-
-
 %make_install
 sed -i -e "s/-march=haswell//g" %{buildroot}/usr/lib64/R/etc/Makeconf
-## make_install_append content
-#sed -i -e "s/\-fno-semantic-interposition/-fno-semantic-interposition -march=native/" %{buildroot}/usr/lib64/R/etc/Makeconf
-## make_install_append end
+
 
 %files
 %defattr(-,root,root,-)
@@ -252,7 +249,6 @@ sed -i -e "s/-march=haswell//g" %{buildroot}/usr/lib64/R/etc/Makeconf
 /usr/lib64/R/bin/check
 /usr/lib64/R/bin/config
 /usr/lib64/R/bin/exec/R
-#/usr/lib64/R/bin/f77_f2c
 /usr/lib64/R/bin/javareconf
 /usr/lib64/R/bin/libtool
 /usr/lib64/R/bin/mkinstalldirs
@@ -1212,26 +1208,26 @@ sed -i -e "s/-march=haswell//g" %{buildroot}/usr/lib64/R/etc/Makeconf
 /usr/lib64/R/library/survival/data/Rdata.rdb
 /usr/lib64/R/library/survival/data/Rdata.rds
 /usr/lib64/R/library/survival/data/Rdata.rdx
-/usr/lib64/R/library/survival/doc/population.R
-/usr/lib64/R/library/survival/doc/population.Rnw
-/usr/lib64/R/library/survival/doc/population.pdf
-#/usr/lib64/R/library/survival/data/datalist
 /usr/lib64/R/library/survival/doc/adjcurve.R
 /usr/lib64/R/library/survival/doc/adjcurve.Rnw
 /usr/lib64/R/library/survival/doc/adjcurve.pdf
+/usr/lib64/R/library/survival/doc/approximate.R
+/usr/lib64/R/library/survival/doc/approximate.Rnw
+/usr/lib64/R/library/survival/doc/approximate.pdf
 /usr/lib64/R/library/survival/doc/compete.R
 /usr/lib64/R/library/survival/doc/compete.Rnw
 /usr/lib64/R/library/survival/doc/compete.pdf
 /usr/lib64/R/library/survival/doc/index.html
-/usr/lib64/R/library/survival/doc/multi.R
 /usr/lib64/R/library/survival/doc/multi.Rnw
 /usr/lib64/R/library/survival/doc/multi.pdf
+/usr/lib64/R/library/survival/doc/other.Rnw
+/usr/lib64/R/library/survival/doc/other.pdf
+/usr/lib64/R/library/survival/doc/population.R
+/usr/lib64/R/library/survival/doc/population.Rnw
+/usr/lib64/R/library/survival/doc/population.pdf
 /usr/lib64/R/library/survival/doc/splines.R
 /usr/lib64/R/library/survival/doc/splines.Rnw
 /usr/lib64/R/library/survival/doc/splines.pdf
-/usr/lib64/R/library/survival/doc/tests.R
-/usr/lib64/R/library/survival/doc/tests.Rnw
-/usr/lib64/R/library/survival/doc/tests.pdf
 /usr/lib64/R/library/survival/doc/tiedtimes.R
 /usr/lib64/R/library/survival/doc/tiedtimes.Rnw
 /usr/lib64/R/library/survival/doc/tiedtimes.pdf
