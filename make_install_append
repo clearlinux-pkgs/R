@@ -1,1 +1,0 @@
-sed -i -e "s/\-fno-semantic-interposition/-fno-semantic-interposition -march=native/" %{buildroot}/usr/lib64/R/etc/Makeconf

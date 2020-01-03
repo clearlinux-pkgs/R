@@ -1,1 +1,0 @@
---without-x --with-system-zlib --with-system-bzlib --with-system-pcre --with-system-xz --enable-BLAS-shlib --enable-R-shlib --with-blas="-lopenblas" --with-cairo --enable-lto 
