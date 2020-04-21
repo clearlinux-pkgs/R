@@ -222,7 +222,7 @@ for i in `find %{buildroot}/usr/lib64/R/library/ -name "*.so"`; do mv $i $i.avx2
 rm `find %{buildroot} -type f | grep -v avx2 | grep -v avx512 | grep -v haswell`  || :
 popd
 
-%make_install
+%make_install install-tests
 sed -i -e "s/-march=haswell//g" %{buildroot}/usr/lib64/R/etc/Makeconf
 
 
@@ -1658,6 +1658,7 @@ sed -i -e "s/-march=haswell//g" %{buildroot}/usr/lib64/R/etc/Makeconf
 /usr/lib64/R/library/survival/doc/concordance.R
 /usr/lib64/R/library/survival/doc/concordance.Rnw
 /usr/lib64/R/library/survival/doc/concordance.pdf
+/usr/lib64/R/tests/
 
 %files bin
 %defattr(-,root,root,-)
@@ -1771,4 +1772,3 @@ sed -i -e "s/-march=haswell//g" %{buildroot}/usr/lib64/R/etc/Makeconf
 /usr/lib64/R/lib/haswell/avx512_1/libRblas.so
 /usr/lib64/R/lib/haswell/avx512_1/libRlapack.so
 /usr/lib64/R/library/*/libs/*.so.avx512
-
