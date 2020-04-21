@@ -1659,6 +1659,7 @@ sed -i -e "s/-march=haswell//g" %{buildroot}/usr/lib64/R/etc/Makeconf
 /usr/lib64/R/library/survival/doc/concordance.Rnw
 /usr/lib64/R/library/survival/doc/concordance.pdf
 /usr/lib64/R/tests/
+/usr/lib64/R/library/*/tests/*
 
 %files bin
 %defattr(-,root,root,-)
