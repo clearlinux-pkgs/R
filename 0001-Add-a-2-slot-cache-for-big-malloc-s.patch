@@ -1,26 +1,37 @@
-Add a 2-slot cache for big malloc()s
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Arjan van de Ven <arjan@linux.intel.com>
+Date: Sat, 13 Jun 2015 11:27:23 -0400
+Subject: [PATCH] Add a 2-slot cache for big malloc()s
 
-R has a pattern of freeing a large vector (usually as part of the GC step in the vector allocation code)
-just before .... allocating the same exact vector again.
-(in the higher level this is for temporary values etc so its sort of logical)
+R has a pattern of freeing a large vector (usually as part of the GC
+step in the vector allocation code) just before .... allocating the same
+exact vector again.  (in the higher level this is for temporary values
+etc so its sort of logical)
 
-this patch adds a 2-slot cache for such malloc()s, this will avoid a munmap / tlb fush / mmap / pagefault-for-all-pages
-cost on the kernel side.
+this patch adds a 2-slot cache for such malloc()s, this will avoid a
+munmap / tlb fush / mmap / pagefault-for-all-pages cost on the kernel
+side.
 
-In addition, there's a thinko in the code around garbage collection. The code tries to call into the GC when
-the upcoming allocation doesn't fit in the memory pools..... even for the large allocations not coming out
+In addition, there's a thinko in the code around garbage collection. The
+code tries to call into the GC when the upcoming allocation doesn't fit
+in the memory pools..... even for the large allocations not coming out
 of those pools... and those will also by definition not fit.
 
-
-On the R-benchmark-25.R performance test, this is giving a > 3.2% improvement.
-
+On the R-benchmark-25.R performance test, this is giving a > 3.2%
+improvement.
 
 Signed-off-by: Arjan van de Ven <arjan@linux.intel.com>
+Signed-off-by: Patrick McCarty <patrick.mccarty@intel.com>
+---
+ src/main/memory.c | 71 ++++++++++++++++++++++++++++++++++++++++-------
+ 1 file changed, 61 insertions(+), 10 deletions(-)
 
---- R-3.2.0/src/main/memory.c.org	2015-06-13 11:02:53.455873966 -0400
-+++ R-3.2.0/src/main/memory.c	2015-06-13 20:34:28.196130713 -0400
-@@ -119,6 +119,50 @@
- static Rboolean R_in_gc = FALSE;
+diff --git a/src/main/memory.c b/src/main/memory.c
+index 2cafc55..f286f5e 100644
+--- a/src/main/memory.c
++++ b/src/main/memory.c
+@@ -131,6 +131,50 @@ static void gc_error(const char *msg)
+ /* These are used in profiling to separate out time in GC */
  int R_gc_running() { return R_in_gc; }
  
 +#include <malloc.h>
@@ -70,7 +81,16 @@ Signed-off-by: Arjan van de Ven <arjan@linux.intel.com>
  #ifdef TESTING_WRITE_BARRIER
  # define PROTECTCHECK
  #endif
-@@ -1052,7 +1052,7 @@
+@@ -244,7 +288,7 @@ static int gc_pending = 0;
+    **** collections it might make sense to also wait before starting
+    **** to inhibit releases */
+ static int gc_force_wait = 0;
+-static int gc_force_gap = 0;
++static int gc_force_gap = 16;
+ static Rboolean gc_inhibit_release = FALSE;
+ #define FORCE_GC (gc_pending || (gc_force_wait > 0 ? (--gc_force_wait > 0 ? 0 : (gc_force_wait = gc_force_gap, 1)) : 0))
+ #else
+@@ -1111,7 +1155,7 @@ static void ReleaseLargeFreeVectors()
  		R_GenHeap[node_class].AllocCount--;
  		if (node_class == LARGE_NODE_CLASS) {
  		    R_LargeVallocSize -= size;
@@ -79,7 +99,7 @@ Signed-off-by: Arjan van de Ven <arjan@linux.intel.com>
  		} else {
  		    custom_node_free(s);
  		}
-@@ -2571,16 +2615,16 @@
+@@ -2771,16 +2815,16 @@ SEXP allocVector3(SEXPTYPE type, R_xlen_t length, R_allocator_t *allocator)
      old_R_VSize = R_VSize;
  
      /* we need to do the gc here so allocSExp doesn't! */
@@ -102,9 +122,9 @@ Signed-off-by: Arjan van de Ven <arjan@linux.intel.com>
 +            }
  	    CLASS_GET_FREE_NODE(node_class, s);
  #if VALGRIND_LEVEL > 1
- 	    VALGRIND_MAKE_MEM_UNDEFINED(DATAPTR(s), actual_size);
-@@ -2602,7 +2646,7 @@
- 	    if (size < (R_SIZE_T_MAX / sizeof(VECREC)) - hdrsize) { /*** not sure this test is quite right -- why subtract the header? LT */
+ 	    VALGRIND_MAKE_MEM_UNDEFINED(STDVEC_DATAPTR(s), actual_size);
+@@ -2803,7 +2847,7 @@ SEXP allocVector3(SEXPTYPE type, R_xlen_t length, R_allocator_t *allocator)
+ 		   indexable by size_t. - TK */
  		mem = allocator ?
  		    custom_node_alloc(allocator, hdrsize + size * sizeof(VECREC)) :
 -		    malloc(hdrsize + size * sizeof(VECREC));
@@ -112,8 +132,8 @@ Signed-off-by: Arjan van de Ven <arjan@linux.intel.com>
  		if (mem == NULL) {
  		    /* If we are near the address space limit, we
  		       might be short of address space.  So return
-@@ -2664,6 +2708,13 @@
- 	TYPEOF(s) = type;
+@@ -2852,6 +2896,13 @@ SEXP allocVector3(SEXPTYPE type, R_xlen_t length, R_allocator_t *allocator)
+ 	SET_TYPEOF(s, type);
      }
      else {
 +        if (FORCE_GC || NO_FREE_NODES() || VHEAP_FREE() < alloc_size) {
@@ -124,16 +144,5 @@ Signed-off-by: Arjan van de Ven <arjan@linux.intel.com>
 +          	    mem_err_heap(size);
 +        }
  	GC_PROT(s = allocSExpNonCons(type));
- 	SET_SHORT_VEC_LENGTH(s, (R_len_t) length);
+ 	SET_STDVEC_LENGTH(s, (R_len_t) length);
      }
---- R-3.2.0/src/main/memory.c~	2015-06-13 20:34:28.000000000 -0400
-+++ R-3.2.0/src/main/memory.c	2015-06-13 22:46:32.542062756 -0400
-@@ -275,7 +275,7 @@
-    **** collections it might make sense to also wait before starting
-    **** to inhibit releases */
- static int gc_force_wait = 0;
--static int gc_force_gap = 0;
-+static int gc_force_gap = 16;
- static Rboolean gc_inhibit_release = FALSE;
- #define FORCE_GC (gc_force_wait > 0 ? (--gc_force_wait > 0 ? 0 : (gc_force_wait = gc_force_gap, 1)) : 0)
- #else

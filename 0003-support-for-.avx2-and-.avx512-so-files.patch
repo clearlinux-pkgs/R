@@ -1,6 +1,18 @@
---- R-3.4.0/src/unix/dynload.c~	2017-03-23 23:04:04.000000000 +0000
-+++ R-3.4.0/src/unix/dynload.c	2017-06-04 15:40:59.299784347 +0000
-@@ -87,8 +87,21 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Arjan van de Ven <arjan@linux.intel.com>
+Date: Sun, 4 Jun 2017 17:35:40 +0000
+Subject: [PATCH] support for .avx2 and .avx512 so files
+
+Signed-off-by: Patrick McCarty <patrick.mccarty@intel.com>
+---
+ src/unix/dynload.c | 13 +++++++++++++
+ 1 file changed, 13 insertions(+)
+
+diff --git a/src/unix/dynload.c b/src/unix/dynload.c
+index f03d7cb..489edf8 100644
+--- a/src/unix/dynload.c
++++ b/src/unix/dynload.c
+@@ -77,8 +77,21 @@ static void *loadLibrary(const char *path, int asLocal, int now,
  {
      void *handle;
      int openFlag = 0;

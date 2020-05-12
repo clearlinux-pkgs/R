@@ -1,0 +1,25 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Arjan van de Ven <arjan@linux.intel.com>
+Date: Sat, 13 Jun 2015 18:07:08 -0400
+Subject: [PATCH] help the gcc vectorizer
+
+Give GCC a vectorization hint in the core loop of the vector math loop
+
+Signed-off-by: Patrick McCarty <patrick.mccarty@intel.com>
+---
+ src/include/R_ext/Itermacros.h | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/src/include/R_ext/Itermacros.h b/src/include/R_ext/Itermacros.h
+index 036ae95..4cde305 100644
+--- a/src/include/R_ext/Itermacros.h
++++ b/src/include/R_ext/Itermacros.h
+@@ -42,7 +42,7 @@
+     } while (0)
+ 
+ #define R_ITERATE_CORE(n, i, loop_body) do {	\
+-	for (; i < n; ++i) { loop_body }	\
++	 _Pragma("GCC ivdep")	for (; i < n; ++i) { loop_body }	\
+     } while (0)
+ 
+ #define R_ITERATE(n, i, loop_body) do {		\

@@ -1,0 +1,23 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Arjan van de Ven <arjan@linux.intel.com>
+Date: Wed, 9 Aug 2017 03:36:47 +0000
+Subject: [PATCH] Don't force GC all the time
+
+Signed-off-by: Patrick McCarty <patrick.mccarty@intel.com>
+---
+ src/main/memory.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/src/main/memory.c b/src/main/memory.c
+index f286f5e..e8b653d 100644
+--- a/src/main/memory.c
++++ b/src/main/memory.c
+@@ -290,7 +290,7 @@ static int gc_pending = 0;
+ static int gc_force_wait = 0;
+ static int gc_force_gap = 16;
+ static Rboolean gc_inhibit_release = FALSE;
+-#define FORCE_GC (gc_pending || (gc_force_wait > 0 ? (--gc_force_wait > 0 ? 0 : (gc_force_wait = gc_force_gap, 1)) : 0))
++#define FORCE_GC (gc_pending)
+ #else
+ # define FORCE_GC gc_pending
+ #endif
