@@ -1,8 +1,8 @@
 Name     : R
-Version  : 3.6.3
-Release  : 129
-URL      : https://ftp.osuosl.org/pub/cran/src/base/R-3/R-3.6.3.tar.gz
-Source0  : https://ftp.osuosl.org/pub/cran/src/base/R-3/R-3.6.3.tar.gz
+Version  : 4.0.0
+Release  : 130
+URL      : https://ftp.osuosl.org/pub/cran/src/base/R-4/R-4.0.0.tar.gz
+Source0  : https://ftp.osuosl.org/pub/cran/src/base/R-4/R-4.0.0.tar.gz
 Summary  : Simple Package with NameSpace and S4 Methods and Classes
 Group    : Development/Tools
 License  : BSD-2-Clause BSD-3-Clause GPL-2.0 GPL-2.0+
@@ -26,7 +26,7 @@ BuildRequires : openblas
 BuildRequires : openblas-staticdev
 BuildRequires : openssl-dev
 BuildRequires : pango-dev
-BuildRequires : pcre-dev
+BuildRequires : pcre2-dev
 BuildRequires : readline-dev
 BuildRequires : tcl-dev
 BuildRequires : tk-dev
@@ -49,12 +49,12 @@ BuildRequires : libXt-dev
 # listed under Libs.private in tk.pc, so they should be private to tk... Until
 # we resolve this packaging issue, require libXss for the R build.
 BuildRequires : pkgconfig(xscrnsaver)
-Patch1: malloc_cache.patch
-Patch2: vectorizer.patch
-Patch3: avx2.patch
-Patch4: no-force-gc.patch
-Patch5: macro-dirs.patch
-Patch6: 0001-Add-Rbench-as-PGO-profiling-workload.patch
+Patch1: 0001-Add-a-2-slot-cache-for-big-malloc-s.patch
+Patch2: 0002-help-the-gcc-vectorizer.patch
+Patch3: 0003-support-for-.avx2-and-.avx512-so-files.patch
+Patch4: 0004-Don-t-force-GC-all-the-time.patch
+Patch5: 0005-Set-m4-macro-directory.patch
+Patch6: 0006-Add-Rbench-as-PGO-profiling-workload.patch
 
 %description
 (See "doc/FAQ" and "doc/RESOURCES" for more detailed information
@@ -266,11 +266,15 @@ sed -i -e "s/-march=haswell//g" %{buildroot}/usr/lib64/R/etc/Makeconf
 /usr/lib64/R/doc/NEWS.0
 /usr/lib64/R/doc/NEWS.1
 /usr/lib64/R/doc/NEWS.2
+/usr/lib64/R/doc/NEWS.2.rds
+/usr/lib64/R/doc/NEWS.3
+/usr/lib64/R/doc/NEWS.3.rds
 /usr/lib64/R/doc/NEWS.pdf
 /usr/lib64/R/doc/NEWS.rds
 /usr/lib64/R/doc/RESOURCES
 /usr/lib64/R/doc/THANKS
 /usr/lib64/R/doc/html/NEWS.2.html
+/usr/lib64/R/doc/html/NEWS.3.html
 /usr/lib64/R/doc/html/NEWS.html
 /usr/lib64/R/doc/html/R.css
 /usr/lib64/R/doc/html/Rlogo.pdf
@@ -522,6 +526,7 @@ sed -i -e "s/-march=haswell//g" %{buildroot}/usr/lib64/R/etc/Makeconf
 /usr/lib64/R/library/class/po/de/LC_MESSAGES/R-class.mo
 /usr/lib64/R/library/class/po/en@quot/LC_MESSAGES/R-class.mo
 /usr/lib64/R/library/class/po/fr/LC_MESSAGES/R-class.mo
+/usr/lib64/R/library/class/po/it/LC_MESSAGES/R-class.mo
 /usr/lib64/R/library/class/po/ko/LC_MESSAGES/R-class.mo
 /usr/lib64/R/library/class/po/pl/LC_MESSAGES/R-class.mo
 /usr/lib64/R/library/cluster/CITATION
@@ -557,6 +562,7 @@ sed -i -e "s/-march=haswell//g" %{buildroot}/usr/lib64/R/etc/Makeconf
 /usr/lib64/R/library/cluster/po/ko/LC_MESSAGES/R-cluster.mo
 /usr/lib64/R/library/cluster/po/ko/LC_MESSAGES/cluster.mo
 /usr/lib64/R/library/cluster/po/pl/LC_MESSAGES/R-cluster.mo
+/usr/lib64/R/library/cluster/test-tools.R
 /usr/lib64/R/library/codetools/DESCRIPTION
 /usr/lib64/R/library/codetools/INDEX
 /usr/lib64/R/library/codetools/Meta/Rd.rds
@@ -631,7 +637,9 @@ sed -i -e "s/-march=haswell//g" %{buildroot}/usr/lib64/R/etc/Makeconf
 /usr/lib64/R/library/foreign/R/foreign.rdx
 /usr/lib64/R/library/foreign/files/HillRace.SYD
 /usr/lib64/R/library/foreign/files/Iris.syd
+/usr/lib64/R/library/foreign/files/electric.sav
 /usr/lib64/R/library/foreign/files/sids.dbf
+/usr/lib64/R/library/foreign/files/testdata.sav
 /usr/lib64/R/library/foreign/help/AnIndex
 /usr/lib64/R/library/foreign/help/aliases.rds
 /usr/lib64/R/library/foreign/help/foreign.rdb
@@ -1217,6 +1225,9 @@ sed -i -e "s/-march=haswell//g" %{buildroot}/usr/lib64/R/etc/Makeconf
 /usr/lib64/R/library/survival/doc/compete.R
 /usr/lib64/R/library/survival/doc/compete.Rnw
 /usr/lib64/R/library/survival/doc/compete.pdf
+/usr/lib64/R/library/survival/doc/concordance.R
+/usr/lib64/R/library/survival/doc/concordance.Rnw
+/usr/lib64/R/library/survival/doc/concordance.pdf
 /usr/lib64/R/library/survival/doc/index.html
 /usr/lib64/R/library/survival/doc/multi.Rnw
 /usr/lib64/R/library/survival/doc/multi.pdf
@@ -1651,13 +1662,6 @@ sed -i -e "s/-march=haswell//g" %{buildroot}/usr/lib64/R/etc/Makeconf
 /usr/lib64/R/share/texmf/tex/latex/omscmtt.fd
 /usr/lib64/R/share/texmf/tex/latex/ts1aer.fd
 /usr/lib64/R/share/texmf/tex/latex/ts1aett.fd
-/usr/lib64/R/library/foreign/files/electric.sav
-/usr/lib64/R/library/foreign/files/testdata.sav
-/usr/lib64/R/include/R_ext/Altrep.h
-/usr/lib64/R/library/cluster/test-tools.R
-/usr/lib64/R/library/survival/doc/concordance.R
-/usr/lib64/R/library/survival/doc/concordance.Rnw
-/usr/lib64/R/library/survival/doc/concordance.pdf
 /usr/lib64/R/tests/
 /usr/lib64/R/library/*/tests/*
 
@@ -1669,6 +1673,7 @@ sed -i -e "s/-march=haswell//g" %{buildroot}/usr/lib64/R/etc/Makeconf
 %files dev
 %defattr(-,root,root,-)
 /usr/lib64/R/include/R.h
+/usr/lib64/R/include/R_ext/Altrep.h
 /usr/lib64/R/include/R_ext/Applic.h
 /usr/lib64/R/include/R_ext/Arith.h
 /usr/lib64/R/include/R_ext/BLAS.h
@@ -1733,13 +1738,12 @@ sed -i -e "s/-march=haswell//g" %{buildroot}/usr/lib64/R/etc/Makeconf
 
 %files lib
 %defattr(-,root,root,-)
-/usr/lib64/R/lib/libR.so
-/usr/lib64/R/lib/libRblas.so
-/usr/lib64/R/lib/libRlapack.so
 /usr/lib64/R/lib/haswell/libR.so
 /usr/lib64/R/lib/haswell/libRblas.so
 /usr/lib64/R/lib/haswell/libRlapack.so
-/usr/lib64/R/library/*/libs/*.so.avx2
+/usr/lib64/R/lib/libR.so
+/usr/lib64/R/lib/libRblas.so
+/usr/lib64/R/lib/libRlapack.so
 /usr/lib64/R/library/KernSmooth/libs/KernSmooth.so
 /usr/lib64/R/library/MASS/libs/MASS.so
 /usr/lib64/R/library/Matrix/libs/Matrix.so
@@ -1764,10 +1768,11 @@ sed -i -e "s/-march=haswell//g" %{buildroot}/usr/lib64/R/etc/Makeconf
 /usr/lib64/R/library/tcltk/libs/tcltk.so
 /usr/lib64/R/library/tools/libs/tools.so
 /usr/lib64/R/library/utils/libs/utils.so
-/usr/lib64/R/modules/internet.so
-/usr/lib64/R/modules/lapack.so
 /usr/lib64/R/modules/R_X11.so
 /usr/lib64/R/modules/R_de.so
+/usr/lib64/R/modules/internet.so
+/usr/lib64/R/modules/lapack.so
+/usr/lib64/R/library/*/libs/*.so.avx2
 
 /usr/lib64/R/lib/haswell/avx512_1/libR.so
 /usr/lib64/R/lib/haswell/avx512_1/libRblas.so
