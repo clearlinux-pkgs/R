@@ -1,8 +1,8 @@
 Name     : R
-Version  : 4.0.0
+Version  : 4.0.2
 Release  : 130
-URL      : https://ftp.osuosl.org/pub/cran/src/base/R-4/R-4.0.0.tar.gz
-Source0  : https://ftp.osuosl.org/pub/cran/src/base/R-4/R-4.0.0.tar.gz
+URL      : https://ftp.osuosl.org/pub/cran/src/base/R-4/R-4.0.2.tar.gz
+Source0  : https://ftp.osuosl.org/pub/cran/src/base/R-4/R-4.0.2.tar.gz
 Summary  : Simple Package with NameSpace and S4 Methods and Classes
 Group    : Development/Tools
 License  : BSD-2-Clause BSD-3-Clause GPL-2.0 GPL-2.0+
@@ -1664,6 +1664,13 @@ sed -i -e "s/-march=haswell//g" %{buildroot}/usr/lib64/R/etc/Makeconf
 /usr/lib64/R/share/texmf/tex/latex/ts1aett.fd
 /usr/lib64/R/tests/
 /usr/lib64/R/library/*/tests/*
+/usr/lib64/R/library/KernSmooth/po/it/LC_MESSAGES/R-KernSmooth.mo
+/usr/lib64/R/library/MASS/po/it/LC_MESSAGES/R-MASS.mo
+/usr/lib64/R/library/boot/po/it/LC_MESSAGES/R-boot.mo
+/usr/lib64/R/library/foreign/po/it/LC_MESSAGES/R-foreign.mo
+/usr/lib64/R/library/foreign/po/it/LC_MESSAGES/foreign.mo
+/usr/lib64/R/library/nnet/po/it/LC_MESSAGES/R-nnet.mo
+/usr/lib64/R/library/spatial/po/it/LC_MESSAGES/R-spatial.mo
 
 %files bin
 %defattr(-,root,root,-)
@@ -1778,3 +1785,4 @@ sed -i -e "s/-march=haswell//g" %{buildroot}/usr/lib64/R/etc/Makeconf
 /usr/lib64/R/lib/haswell/avx512_1/libRblas.so
 /usr/lib64/R/lib/haswell/avx512_1/libRlapack.so
 /usr/lib64/R/library/*/libs/*.so.avx512
+
