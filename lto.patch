@@ -1,0 +1,20 @@
+--- R-4.0.3/config.site~	2020-09-01 22:15:02.000000000 +0000
++++ R-4.0.3/config.site	2020-10-20 14:46:28.341661382 +0000
+@@ -381,13 +381,13 @@
+ 
+ ## Commands which might need to be set for LTO builds
+ ## Typical values for LTO are gcc-ar, gcc-nm and gcc-ranlib
+-## AR=
+-## NM=
+-## RANLIB=
++AR=gcc-ar
++NM=gcc-nm
++RANLIB=gcc-ranlib
+ ##
+ ## The LTO macro, defaulting to -flto
+ ## Could be e.g. -flto=8 for GCC or -flto=thin for clang.
+-## LTO= 
++LTO= -flto=8
+ ## Ditto for the Fortran compiler, defaulting to the value of LTO.
+ ## LTO_FC= 
+ ##
