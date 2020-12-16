@@ -12,7 +12,7 @@ Signed-off-by: Patrick McCarty <patrick.mccarty@intel.com>
  1 file changed, 1 insertion(+)
 
 diff --git a/configure.ac b/configure.ac
-index dc0c39e..9db73a5 100644
+index dbf4c27..7b37435 100644
 --- a/configure.ac
 +++ b/configure.ac
 @@ -33,6 +33,7 @@ m4_define([R_VERSION],

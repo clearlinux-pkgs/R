@@ -9,7 +9,7 @@ Signed-off-by: Patrick McCarty <patrick.mccarty@intel.com>
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/src/main/memory.c b/src/main/memory.c
-index f286f5e..e8b653d 100644
+index d3972b5..ec61cb8 100644
 --- a/src/main/memory.c
 +++ b/src/main/memory.c
 @@ -290,7 +290,7 @@ static int gc_pending = 0;

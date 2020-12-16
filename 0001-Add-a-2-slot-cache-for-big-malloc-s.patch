@@ -27,7 +27,7 @@ Signed-off-by: Patrick McCarty <patrick.mccarty@intel.com>
  1 file changed, 61 insertions(+), 10 deletions(-)
 
 diff --git a/src/main/memory.c b/src/main/memory.c
-index 2cafc55..f286f5e 100644
+index b5b0e64..d3972b5 100644
 --- a/src/main/memory.c
 +++ b/src/main/memory.c
 @@ -131,6 +131,50 @@ static void gc_error(const char *msg)

@@ -1,5 +1,7 @@
---- R-4.0.3/config.site~	2020-09-01 22:15:02.000000000 +0000
-+++ R-4.0.3/config.site	2020-10-20 14:46:28.341661382 +0000
+diff --git a/config.site b/config.site
+index 29daa2c..33f58a2 100644
+--- a/config.site
++++ b/config.site
 @@ -381,13 +381,13 @@
  
  ## Commands which might need to be set for LTO builds

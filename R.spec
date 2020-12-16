@@ -1,6 +1,6 @@
 Name     : R
 Version  : 4.0.3
-Release  : 131
+Release  : 132
 URL      : https://ftp.osuosl.org/pub/cran/src/base/R-4/R-4.0.3.tar.gz
 Source0  : https://ftp.osuosl.org/pub/cran/src/base/R-4/R-4.0.3.tar.gz
 Summary  : Simple Package with NameSpace and S4 Methods and Classes
@@ -55,7 +55,8 @@ Patch3: 0003-support-for-.avx2-and-.avx512-so-files.patch
 Patch4: 0004-Don-t-force-GC-all-the-time.patch
 Patch5: 0005-Set-m4-macro-directory.patch
 Patch6: 0006-Add-Rbench-as-PGO-profiling-workload.patch
-Patch7: lto.patch
+Patch7: 0007-Adjust-gettext-autotools-config-to-fix-build.patch
+Patch8: lto.patch
 
 %description
 (See "doc/FAQ" and "doc/RESOURCES" for more detailed information
@@ -113,6 +114,7 @@ fi
 %patch5 -p1
 %patch6 -p1
 %patch7 -p1
+%patch8 -p1
 
 pushd ..
 cp -a R-%{version} R-%{version}-avx2

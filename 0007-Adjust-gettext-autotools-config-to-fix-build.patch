@@ -1,0 +1,65 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Patrick McCarty <patrick.mccarty@intel.com>
+Date: Wed, 16 Dec 2020 19:22:37 +0000
+Subject: [PATCH] Adjust gettext autotools config to fix build
+
+With autoreconf from autoconf 2.70, some pre-existing errors are now
+fatal. Notably:
+
+  ERROR: invalid first argument to AM_GNU_GETTEXT
+  ERROR: Use of AM_GNU_GETTEXT without [external] argument is no longer supported.
+
+Other adjustments:
+
+  - autoreconf from autoconf 2.70 will only detect
+    AM_GNU_GETTEXT_VERSION (or AM_GNU_GETTEXT_REQUIRE_VERSION) at toplevel
+    in configure.ac. I don't think this requirement is documented yet
+    outside an informative code comment in the autoreconf script.
+
+  - Set `USE_INCLUDED_LIBINTL=no` (and AC_SUBST() it) manually, since it
+    appears not be set anymore via gettext autoconf macros. If macros
+    *did* set it, it would be for legacy purposes. We need to set for now
+    because it is referenced elsewhere in configure.ac and in a makefile.
+
+  - Remove obsolete "echo" commands to improve configure output.
+
+I expect upstream will make a different set of changes once they begin
+using autoconf 2.70+, so I consider this patch distro-specific.
+
+Upstream-Status: Inappropriate
+Signed-off-by: Patrick McCarty <patrick.mccarty@intel.com>
+---
+ configure.ac | 13 +++++++------
+ 1 file changed, 7 insertions(+), 6 deletions(-)
+
+diff --git a/configure.ac b/configure.ac
+index 7b37435..37c23c9 100644
+--- a/configure.ac
++++ b/configure.ac
+@@ -2642,19 +2642,20 @@ AM_CONDITIONAL(USE_RECOMMENDED_PACKAGES,
+ 
+ # i18n support.
+ AM_NLS
++AM_GNU_GETTEXT_REQUIRE_VERSION([0.20.1])
+ if test "${USE_NLS}" = "yes"; then
+-  echo
+-  echo "Configuring src/extra/intl directory"
+-  AM_GNU_GETTEXT_VERSION(0.16.1)
+-  AM_GNU_GETTEXT([no-libtool], [need-ngettext], [../extra/intl])
++  AM_GNU_GETTEXT([external], [need-ngettext])
++  # Modern GNU gettext appears to no longer set this variable, because
++  # "external" gettext is required. Set it manually for now, because an
++  # AM_CONDITIONAL needs it a few lines below.
++  USE_INCLUDED_LIBINTL=no
+   if test -n "$INTL_MACOSX_LIBS"; then
+     XTRA_INTL_CPPFLAGS=-I/System/Library/Frameworks/CoreFoundation.framework/Headers
+   fi
+-  echo "Finished configuring src/extra/intl directory"
+-  echo
+ else
+   USE_INCLUDED_LIBINTL=no
+ fi
++AC_SUBST(USE_INCLUDED_LIBINTL)
+ AC_SUBST(XTRA_INTL_CPPFLAGS)
+ 
+ AM_CONDITIONAL(USE_NLS, [test "x${USE_NLS}" = xyes])
