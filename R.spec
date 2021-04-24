@@ -1790,3 +1790,10 @@ sed -i -e "s/-march=haswell//g" %{buildroot}/usr/lib64/R/etc/Makeconf
 /usr/lib64/R/lib/haswell/avx512_1/libRlapack.so
 /usr/lib64/R/library/*/libs/*.so.avx512
 
+   /usr/lib64/R/library/Matrix/data/datalist
+   /usr/lib64/R/library/Matrix/data/wrld_1deg.R
+   /usr/lib64/R/library/Matrix/external/Z_NA_rnk.rds
+   /usr/lib64/R/library/Matrix/external/wrld_1deg_slots.rda
+   /usr/lib64/R/library/cluster/po/fr/LC_MESSAGES/cluster.mo
+   /usr/lib64/R/library/cluster/po/it/LC_MESSAGES/R-cluster.mo
+   /usr/lib64/R/library/cluster/po/it/LC_MESSAGES/cluster.mo
