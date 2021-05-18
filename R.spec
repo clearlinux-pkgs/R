@@ -1,8 +1,8 @@
 Name     : R
-Version  : 4.0.5
+Version  : 4.1.0
 Release  : 134
-URL      : https://ftp.osuosl.org/pub/cran/src/base/R-4/R-4.0.5.tar.gz
-Source0  : https://ftp.osuosl.org/pub/cran/src/base/R-4/R-4.0.5.tar.gz
+URL      : https://ftp.osuosl.org/pub/cran/src/base/R-4/R-4.1.0.tar.gz
+Source0  : https://ftp.osuosl.org/pub/cran/src/base/R-4/R-4.1.0.tar.gz
 Summary  : Simple Package with NameSpace and S4 Methods and Classes
 Group    : Development/Tools
 License  : BSD-2-Clause BSD-3-Clause GPL-2.0 GPL-2.0+
@@ -1797,3 +1797,68 @@ sed -i -e "s/-march=haswell//g" %{buildroot}/usr/lib64/R/etc/Makeconf
    /usr/lib64/R/library/cluster/po/fr/LC_MESSAGES/cluster.mo
    /usr/lib64/R/library/cluster/po/it/LC_MESSAGES/R-cluster.mo
    /usr/lib64/R/library/cluster/po/it/LC_MESSAGES/cluster.mo
+ /usr/lib64/R/library/Matrix/external/jgl009.mtx
+   /usr/lib64/R/library/Matrix/po/it/LC_MESSAGES/Matrix.mo
+   /usr/lib64/R/library/Matrix/po/it/LC_MESSAGES/R-Matrix.mo
+   /usr/lib64/R/library/Matrix/po/ko/LC_MESSAGES/Matrix.mo
+   /usr/lib64/R/library/Matrix/po/lt/LC_MESSAGES/Matrix.mo
+   /usr/lib64/R/library/Matrix/po/lt/LC_MESSAGES/R-Matrix.mo
+   /usr/lib64/R/library/cluster/po/lt/LC_MESSAGES/R-cluster.mo
+   /usr/lib64/R/library/cluster/po/lt/LC_MESSAGES/cluster.mo
+   /usr/lib64/R/library/lattice/po/it/LC_MESSAGES/R-lattice.mo
+   /usr/lib64/R/library/mgcv/po/it/LC_MESSAGES/R-mgcv.mo
+   /usr/lib64/R/library/mgcv/po/it/LC_MESSAGES/mgcv.mo
+   /usr/lib64/R/library/translations/fr/LC_MESSAGES/utils.mo
+   /usr/lib64/R/library/translations/it/LC_MESSAGES/R-compiler.mo
+   /usr/lib64/R/library/translations/it/LC_MESSAGES/R-grid.mo
+   /usr/lib64/R/library/translations/it/LC_MESSAGES/R-methods.mo
+   /usr/lib64/R/library/translations/it/LC_MESSAGES/R-parallel.mo
+   /usr/lib64/R/library/translations/it/LC_MESSAGES/R-splines.mo
+   /usr/lib64/R/library/translations/it/LC_MESSAGES/R-utils.mo
+   /usr/lib64/R/library/translations/it/LC_MESSAGES/methods.mo
+   /usr/lib64/R/library/translations/it/LC_MESSAGES/parallel.mo
+   /usr/lib64/R/library/translations/it/LC_MESSAGES/splines.mo
+   /usr/lib64/R/library/translations/it/LC_MESSAGES/tcltk.mo
+   /usr/lib64/R/library/translations/it/LC_MESSAGES/utils.mo
+   /usr/lib64/R/library/translations/lt/LC_MESSAGES/R-base.mo
+   /usr/lib64/R/library/translations/lt/LC_MESSAGES/R-compiler.mo
+   /usr/lib64/R/library/translations/lt/LC_MESSAGES/R-grDevices.mo
+   /usr/lib64/R/library/translations/lt/LC_MESSAGES/R-graphics.mo
+   /usr/lib64/R/library/translations/lt/LC_MESSAGES/R-grid.mo
+   /usr/lib64/R/library/translations/lt/LC_MESSAGES/R-parallel.mo
+   /usr/lib64/R/library/translations/lt/LC_MESSAGES/R-stats4.mo
+   /usr/lib64/R/library/translations/lt/LC_MESSAGES/R-tcltk.mo
+   /usr/lib64/R/library/translations/lt/LC_MESSAGES/R-utils.mo
+   /usr/lib64/R/library/translations/lt/LC_MESSAGES/R.mo
+   /usr/lib64/R/library/translations/lt/LC_MESSAGES/RGui.mo
+   /usr/lib64/R/library/translations/lt/LC_MESSAGES/grDevices.mo
+   /usr/lib64/R/library/translations/lt/LC_MESSAGES/graphics.mo
+   /usr/lib64/R/library/translations/lt/LC_MESSAGES/grid.mo
+   /usr/lib64/R/library/translations/lt/LC_MESSAGES/methods.mo
+   /usr/lib64/R/library/translations/lt/LC_MESSAGES/parallel.mo
+   /usr/lib64/R/library/translations/lt/LC_MESSAGES/splines.mo
+   /usr/lib64/R/library/translations/lt/LC_MESSAGES/stats.mo
+   /usr/lib64/R/library/translations/lt/LC_MESSAGES/tcltk.mo
+   /usr/lib64/R/library/translations/lt/LC_MESSAGES/utils.mo
+   /usr/lib64/R/library/translations/ru/LC_MESSAGES/utils.mo
+   /usr/lib64/R/library/translations/zh_TW/LC_MESSAGES/R-base.mo
+   /usr/lib64/R/library/translations/zh_TW/LC_MESSAGES/R-compiler.mo
+   /usr/lib64/R/library/translations/zh_TW/LC_MESSAGES/R-grDevices.mo
+   /usr/lib64/R/library/translations/zh_TW/LC_MESSAGES/R-graphics.mo
+   /usr/lib64/R/library/translations/zh_TW/LC_MESSAGES/R-grid.mo
+   /usr/lib64/R/library/translations/zh_TW/LC_MESSAGES/R-parallel.mo
+   /usr/lib64/R/library/translations/zh_TW/LC_MESSAGES/R-splines.mo
+   /usr/lib64/R/library/translations/zh_TW/LC_MESSAGES/R-stats.mo
+   /usr/lib64/R/library/translations/zh_TW/LC_MESSAGES/R-stats4.mo
+   /usr/lib64/R/library/translations/zh_TW/LC_MESSAGES/R-tcltk.mo
+   /usr/lib64/R/library/translations/zh_TW/LC_MESSAGES/R-utils.mo
+   /usr/lib64/R/library/translations/zh_TW/LC_MESSAGES/grDevices.mo
+   /usr/lib64/R/library/translations/zh_TW/LC_MESSAGES/grid.mo
+   /usr/lib64/R/library/translations/zh_TW/LC_MESSAGES/methods.mo
+   /usr/lib64/R/library/translations/zh_TW/LC_MESSAGES/parallel.mo
+   /usr/lib64/R/library/translations/zh_TW/LC_MESSAGES/splines.mo
+   /usr/lib64/R/library/translations/zh_TW/LC_MESSAGES/stats.mo
+   /usr/lib64/R/library/translations/zh_TW/LC_MESSAGES/tcltk.mo
+   /usr/lib64/R/library/translations/zh_TW/LC_MESSAGES/tools.mo
+   /usr/lib64/R/library/translations/zh_TW/LC_MESSAGES/utils.mo
+   
