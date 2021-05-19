@@ -169,10 +169,10 @@ make distclean
 popd
 
 pushd ../R-%{version}-pgo
-export CFLAGS="$CFLAGS_STUB -march=skylake-avx512 -flto=12 $PGO_GEN_AVX512"
-export FCFLAGS="$FCFLAGS_STUB -march=skylake-avx512 -flto=12 $PGO_GEN_AVX512"
-export FFLAGS="$FFLAGS_STUB -march=skylake-avx512 -flto=12 $PGO_GEN_AVX512"
-export CXXFLAGS="$CXXFLAGS_STUB -march=skylake-avx512 -flto=12 $PGO_GEN_AVX512"
+export CFLAGS="$CFLAGS_STUB -march=skylake-avx512 -mprefer-vector-width=512 -flto=12 $PGO_GEN_AVX512"
+export FCFLAGS="$FCFLAGS_STUB -march=skylake-avx512 -mprefer-vector-width=512 -flto=12 $PGO_GEN_AVX512"
+export FFLAGS="$FFLAGS_STUB -march=skylake-avx512 -mprefer-vector-width=512 -flto=12 $PGO_GEN_AVX512"
+export CXXFLAGS="$CXXFLAGS_STUB -march=skylake-avx512 -mprefer-vector-width=512 -flto=12 $PGO_GEN_AVX512"
 %reconfigure --disable-static --with-system-zlib --with-system-bzlib --with-system-pcre --with-system-xz --enable-BLAS-shlib --enable-R-shlib --with-blas="-lopenblas" --with-cairo --enable-lto --disable-long-double
 make V=1  %{?_smp_mflags}
 ./bin/Rscript R-benchmark-25/R-benchmark-25.R
