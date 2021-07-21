@@ -129,10 +129,10 @@ export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
 export SOURCE_DATE_EPOCH=1496604342
 unset LD_AS_NEEDED
-export CFLAGS_STUB="$CFLAGS -O3 -falign-functions=32 -fno-semantic-interposition -flto=12 "
-export FCFLAGS_STUB="$CFLAGS -O3 -falign-functions=32 -fno-semantic-interposition -flto=12 "
-export FFLAGS_STUB="$CFLAGS -O3 -falign-functions=32 -fno-semantic-interposition -flto=12 "
-export CXXFLAGS_STUB="$CXXFLAGS -O3 -falign-functions=32 -fno-semantic-interposition -flto=12 "
+export CFLAGS_STUB="$CFLAGS -O3 -falign-functions=32 -fno-semantic-interposition -flto=auto "
+export FCFLAGS_STUB="$CFLAGS -O3 -falign-functions=32 -fno-semantic-interposition -flto=auto "
+export FFLAGS_STUB="$CFLAGS -O3 -falign-functions=32 -fno-semantic-interposition -flto=auto "
+export CXXFLAGS_STUB="$CXXFLAGS -O3 -falign-functions=32 -fno-semantic-interposition -flto=auto "
 
 # Ensure that C and C++ shared libraries contain debuginfo by adding -g to
 # linker command lines. Note that -g is appended to the default linker flags.
@@ -158,10 +158,10 @@ make distclean
 popd
 
 pushd ../R-%{version}-pgo
-export CFLAGS="$CFLAGS_STUB -march=haswell -flto=12 $PGO_GEN_AVX2"
-export FCFLAGS="$FCFLAGS_STUB -march=haswell -flto=12 $PGO_GEN_AVX2"
-export FFLAGS="$FFLAGS_STUB -march=haswell -flto=12 $PGO_GEN_AVX2"
-export CXXFLAGS="$CXXFLAGS_STUB -march=haswell -flto=12 $PGO_GEN_AVX2"
+export CFLAGS="$CFLAGS_STUB -march=haswell -flto=auto $PGO_GEN_AVX2"
+export FCFLAGS="$FCFLAGS_STUB -march=haswell -flto=auto $PGO_GEN_AVX2"
+export FFLAGS="$FFLAGS_STUB -march=haswell -flto=auto $PGO_GEN_AVX2"
+export CXXFLAGS="$CXXFLAGS_STUB -march=haswell -flto=auto $PGO_GEN_AVX2"
 %reconfigure --disable-static --with-system-zlib --with-system-bzlib --with-system-pcre --with-system-xz --enable-BLAS-shlib --enable-R-shlib --with-blas="-lopenblas" --with-cairo --enable-lto --disable-long-double
 make V=1  %{?_smp_mflags}
 ./bin/Rscript R-benchmark-25/R-benchmark-25.R
@@ -169,10 +169,10 @@ make distclean
 popd
 
 pushd ../R-%{version}-pgo
-export CFLAGS="$CFLAGS_STUB -march=skylake-avx512 -mprefer-vector-width=512 -flto=12 $PGO_GEN_AVX512"
-export FCFLAGS="$FCFLAGS_STUB -march=skylake-avx512 -mprefer-vector-width=512 -flto=12 $PGO_GEN_AVX512"
-export FFLAGS="$FFLAGS_STUB -march=skylake-avx512 -mprefer-vector-width=512 -flto=12 $PGO_GEN_AVX512"
-export CXXFLAGS="$CXXFLAGS_STUB -march=skylake-avx512 -mprefer-vector-width=512 -flto=12 $PGO_GEN_AVX512"
+export CFLAGS="$CFLAGS_STUB -march=skylake-avx512 -mprefer-vector-width=256 -flto=auto $PGO_GEN_AVX512"
+export FCFLAGS="$FCFLAGS_STUB -march=skylake-avx512 -mprefer-vector-width=256 -flto=auto $PGO_GEN_AVX512"
+export FFLAGS="$FFLAGS_STUB -march=skylake-avx512 -mprefer-vector-width=256 -flto=auto $PGO_GEN_AVX512"
+export CXXFLAGS="$CXXFLAGS_STUB -march=skylake-avx512 -mprefer-vector-width=256 -flto=auto $PGO_GEN_AVX512"
 %reconfigure --disable-static --with-system-zlib --with-system-bzlib --with-system-pcre --with-system-xz --enable-BLAS-shlib --enable-R-shlib --with-blas="-lopenblas" --with-cairo --enable-lto --disable-long-double
 make V=1  %{?_smp_mflags}
 ./bin/Rscript R-benchmark-25/R-benchmark-25.R
@@ -188,19 +188,19 @@ export CXXFLAGS="$CXXFLAGS_STUB $PGO_USE"
 make V=1  %{?_smp_mflags}
 
 pushd ../R-%{version}-avx2
-export CFLAGS="$CFLAGS_STUB -march=haswell -flto=12 $PGO_USE_AVX2"
-export FCFLAGS="$FCFLAGS_STUB -march=haswell -flto=12 $PGO_USE_AVX2"
-export FFLAGS="$FFLAGS_STUB -march=haswell -flto=12 $PGO_USE_AVX2"
-export CXXFLAGS="$CXXFLAGS_STUB -march=haswell -flto=12 $PGO_USE_AVX2"
+export CFLAGS="$CFLAGS_STUB -march=haswell -flto=auto $PGO_USE_AVX2"
+export FCFLAGS="$FCFLAGS_STUB -march=haswell -flto=auto $PGO_USE_AVX2"
+export FFLAGS="$FFLAGS_STUB -march=haswell -flto=auto $PGO_USE_AVX2"
+export CXXFLAGS="$CXXFLAGS_STUB -march=haswell -flto=auto $PGO_USE_AVX2"
 %reconfigure --disable-static --with-system-zlib --with-system-bzlib --with-system-pcre --with-system-xz --enable-BLAS-shlib --enable-R-shlib --with-blas="-lopenblas" --with-cairo --enable-lto --disable-long-double
 make V=1  %{?_smp_mflags}
 popd
 
 pushd ../R-%{version}-avx512
-export CFLAGS="$CFLAGS_STUB -march=skylake-avx512 -flto=12 $PGO_USE_AVX512"
-export FCFLAGS="$FCFLAGS_STUB -march=skylake-avx512 -flto=12 $PGO_USE_AVX512"
-export FFLAGS="$FFLAGS_STUB -march=skylake-avx512 -flto=12 $PGO_USE_AVX512"
-export CXXFLAGS="$CXXFLAGS_STUB -march=skylake-avx512 -flto=12 $PGO_USE_AVX512"
+export CFLAGS="$CFLAGS_STUB -march=skylake-avx512 -flto=auto $PGO_USE_AVX512"
+export FCFLAGS="$FCFLAGS_STUB -march=skylake-avx512 -flto=auto $PGO_USE_AVX512"
+export FFLAGS="$FFLAGS_STUB -march=skylake-avx512 -flto=auto $PGO_USE_AVX512"
+export CXXFLAGS="$CXXFLAGS_STUB -march=skylake-avx512 -flto=auto $PGO_USE_AVX512"
 %reconfigure --disable-static --with-system-zlib --with-system-bzlib --with-system-pcre --with-system-xz --enable-BLAS-shlib --enable-R-shlib --with-blas="-lopenblas" --with-cairo --enable-lto --disable-long-double
 make V=1  %{?_smp_mflags}
 popd
