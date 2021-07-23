@@ -107,7 +107,7 @@ if ! grep -qP '^flags\t+:.*\bavx512vl\b' /proc/cpuinfo; then
 fi
 
 %setup -q
-%patch1 -p1
+#%patch1 -p1
 %patch2 -p1
 %patch3 -p1
 %patch4 -p1
