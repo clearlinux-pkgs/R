@@ -211,27 +211,23 @@ export SOURCE_DATE_EPOCH=1496604342
 rm -rf %{buildroot}
 
 pushd ../R-%{version}-avx512
-%make_install
-mkdir -p %{buildroot}/usr/lib64/R/lib/haswell/avx512_1
-mv %{buildroot}/usr/lib64/R/lib/*.so %{buildroot}/usr/lib64/R/lib/haswell/avx512_1
-for i in `find %{buildroot}/usr/lib64/R/library/ -name "*.so"`; do mv $i $i.avx512 ; done
-rm `find %{buildroot} -type f | grep -v avx512 | grep -v haswell`  || :
+%make_install_v4
 popd
 
 pushd ../R-%{version}-avx2
-%make_install
-mkdir -p %{buildroot}/usr/lib64/R/lib/haswell/
-mv %{buildroot}/usr/lib64/R/lib/*.so %{buildroot}/usr/lib64/R/lib/haswell/
-for i in `find %{buildroot}/usr/lib64/R/library/ -name "*.so"`; do mv $i $i.avx2 ; done
-rm `find %{buildroot} -type f | grep -v avx2 | grep -v avx512 | grep -v haswell`  || :
+%make_install_v3
 popd
 
 %make_install install-tests
 sed -i -e "s/-march=haswell//g" %{buildroot}/usr/lib64/R/etc/Makeconf
 
+/usr/bin/elf-move.py avx2 %{buildroot}-v3 %{buildroot}/usr/share/clear/optimized-elf/ %{buildroot}/usr/share/clear/filemap/filemap-%{name}
+/usr/bin/elf-move.py avx512 %{buildroot}-v4 %{buildroot}/usr/share/clear/optimized-elf/ %{buildroot}/usr/share/clear/filemap/filemap-%{name}
+
 
 %files
 %defattr(-,root,root,-)
+/usr/share/clear/filemap/filemap-*
 /usr/lib64/R/COPYING
 /usr/lib64/R/SVN-REVISION
 /usr/lib64/R/bin/BATCH
@@ -1680,6 +1676,7 @@ sed -i -e "s/-march=haswell//g" %{buildroot}/usr/lib64/R/etc/Makeconf
 %defattr(-,root,root,-)
 /usr/bin/R
 /usr/bin/Rscript
+/usr/share/clear/optimized-elf/bin*
 
 %files dev
 %defattr(-,root,root,-)
@@ -1749,9 +1746,7 @@ sed -i -e "s/-march=haswell//g" %{buildroot}/usr/lib64/R/etc/Makeconf
 
 %files lib
 %defattr(-,root,root,-)
-/usr/lib64/R/lib/haswell/libR.so
-/usr/lib64/R/lib/haswell/libRblas.so
-/usr/lib64/R/lib/haswell/libRlapack.so
+/usr/share/clear/optimized-elf/lib*
 /usr/lib64/R/lib/libR.so
 /usr/lib64/R/lib/libRblas.so
 /usr/lib64/R/lib/libRlapack.so
@@ -1783,12 +1778,6 @@ sed -i -e "s/-march=haswell//g" %{buildroot}/usr/lib64/R/etc/Makeconf
 /usr/lib64/R/modules/R_de.so
 /usr/lib64/R/modules/internet.so
 /usr/lib64/R/modules/lapack.so
-/usr/lib64/R/library/*/libs/*.so.avx2
-
-/usr/lib64/R/lib/haswell/avx512_1/libR.so
-/usr/lib64/R/lib/haswell/avx512_1/libRblas.so
-/usr/lib64/R/lib/haswell/avx512_1/libRlapack.so
-/usr/lib64/R/library/*/libs/*.so.avx512
 
    /usr/lib64/R/library/Matrix/data/datalist
    /usr/lib64/R/library/Matrix/data/wrld_1deg.R
