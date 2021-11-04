@@ -1850,4 +1850,6 @@ sed -i -e "s/-march=haswell//g" %{buildroot}/usr/lib64/R/etc/Makeconf
    /usr/lib64/R/library/translations/zh_TW/LC_MESSAGES/tcltk.mo
    /usr/lib64/R/library/translations/zh_TW/LC_MESSAGES/tools.mo
    /usr/lib64/R/library/translations/zh_TW/LC_MESSAGES/utils.mo
-   
+     /usr/lib64/R/library/survival/doc/discrim.R
+   /usr/lib64/R/library/survival/doc/discrim.Rnw
+   /usr/lib64/R/library/survival/doc/discrim.pdf
