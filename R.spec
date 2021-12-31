@@ -1,6 +1,6 @@
 Name     : R
 Version  : 4.1.2
-Release  : 142
+Release  : 143
 URL      : https://ftp.osuosl.org/pub/cran/src/base/R-4/R-4.1.2.tar.gz
 Source0  : https://ftp.osuosl.org/pub/cran/src/base/R-4/R-4.1.2.tar.gz
 Summary  : Simple Package with NameSpace and S4 Methods and Classes
