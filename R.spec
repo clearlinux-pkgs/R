@@ -1,8 +1,8 @@
 Name     : R
-Version  : 4.1.3
+Version  : 4.2.0
 Release  : 143
-URL      : https://ftp.osuosl.org/pub/cran/src/base/R-4/R-4.1.3.tar.gz
-Source0  : https://ftp.osuosl.org/pub/cran/src/base/R-4/R-4.1.3.tar.gz
+URL      : https://ftp.osuosl.org/pub/cran/src/base/R-4/R-4.2.0.tar.gz
+Source0  : https://ftp.osuosl.org/pub/cran/src/base/R-4/R-4.2.0.tar.gz
 Summary  : Simple Package with NameSpace and S4 Methods and Classes
 Group    : Development/Tools
 License  : BSD-2-Clause BSD-3-Clause GPL-2.0 GPL-2.0+
@@ -947,7 +947,6 @@ sed -i -e "s/-march=haswell//g" %{buildroot}/usr/lib64/R/etc/Makeconf
 /usr/lib64/R/library/nlme/CITATION
 /usr/lib64/R/library/nlme/DESCRIPTION
 /usr/lib64/R/library/nlme/INDEX
-/usr/lib64/R/library/nlme/LICENCE
 /usr/lib64/R/library/nlme/Meta/Rd.rds
 /usr/lib64/R/library/nlme/Meta/data.rds
 /usr/lib64/R/library/nlme/Meta/features.rds
@@ -1657,11 +1656,7 @@ sed -i -e "s/-march=haswell//g" %{buildroot}/usr/lib64/R/etc/Makeconf
 /usr/lib64/R/share/texmf/tex/latex/Rd.sty
 /usr/lib64/R/share/texmf/tex/latex/Sweave.sty
 /usr/lib64/R/share/texmf/tex/latex/jss.cls
-/usr/lib64/R/share/texmf/tex/latex/omsaer.fd
-/usr/lib64/R/share/texmf/tex/latex/omsaett.fd
 /usr/lib64/R/share/texmf/tex/latex/omscmtt.fd
-/usr/lib64/R/share/texmf/tex/latex/ts1aer.fd
-/usr/lib64/R/share/texmf/tex/latex/ts1aett.fd
 /usr/lib64/R/tests/
 /usr/lib64/R/library/*/tests/*
 /usr/lib64/R/library/KernSmooth/po/it/LC_MESSAGES/R-KernSmooth.mo
@@ -1703,7 +1698,6 @@ sed -i -e "s/-march=haswell//g" %{buildroot}/usr/lib64/R/etc/Makeconf
 /usr/lib64/R/include/R_ext/Print.h
 /usr/lib64/R/include/R_ext/PrtUtil.h
 /usr/lib64/R/include/R_ext/QuartzDevice.h
-/usr/lib64/R/include/R_ext/R-ftp-http.h
 /usr/lib64/R/include/R_ext/RS.h
 /usr/lib64/R/include/R_ext/RStartup.h
 /usr/lib64/R/include/R_ext/Rallocators.h
@@ -1723,7 +1717,6 @@ sed -i -e "s/-march=haswell//g" %{buildroot}/usr/lib64/R/etc/Makeconf
 /usr/lib64/R/include/Rinternals.h
 /usr/lib64/R/include/Rmath.h
 /usr/lib64/R/include/Rversion.h
-/usr/lib64/R/include/S.h
 /usr/lib64/R/library/Matrix/include/Matrix.h
 /usr/lib64/R/library/Matrix/include/cholmod.h
 /usr/lib64/pkgconfig/libR.pc
@@ -1795,8 +1788,6 @@ sed -i -e "s/-march=haswell//g" %{buildroot}/usr/lib64/R/etc/Makeconf
    /usr/lib64/R/library/cluster/po/lt/LC_MESSAGES/R-cluster.mo
    /usr/lib64/R/library/cluster/po/lt/LC_MESSAGES/cluster.mo
    /usr/lib64/R/library/lattice/po/it/LC_MESSAGES/R-lattice.mo
-   /usr/lib64/R/library/mgcv/po/it/LC_MESSAGES/R-mgcv.mo
-   /usr/lib64/R/library/mgcv/po/it/LC_MESSAGES/mgcv.mo
    /usr/lib64/R/library/translations/fr/LC_MESSAGES/utils.mo
    /usr/lib64/R/library/translations/it/LC_MESSAGES/R-compiler.mo
    /usr/lib64/R/library/translations/it/LC_MESSAGES/R-grid.mo
@@ -1853,3 +1844,78 @@ sed -i -e "s/-march=haswell//g" %{buildroot}/usr/lib64/R/etc/Makeconf
      /usr/lib64/R/library/survival/doc/discrim.R
    /usr/lib64/R/library/survival/doc/discrim.Rnw
    /usr/lib64/R/library/survival/doc/discrim.pdf
+      /usr/lib64/R/doc/html/katex-config.js
+   /usr/lib64/R/doc/html/katex/LICENSE
+   /usr/lib64/R/doc/html/katex/README.md
+   /usr/lib64/R/doc/html/katex/fonts/KaTeX_AMS-Regular.ttf
+   /usr/lib64/R/doc/html/katex/fonts/KaTeX_AMS-Regular.woff
+   /usr/lib64/R/doc/html/katex/fonts/KaTeX_AMS-Regular.woff2
+   /usr/lib64/R/doc/html/katex/fonts/KaTeX_Caligraphic-Bold.ttf
+   /usr/lib64/R/doc/html/katex/fonts/KaTeX_Caligraphic-Bold.woff
+   /usr/lib64/R/doc/html/katex/fonts/KaTeX_Caligraphic-Bold.woff2
+   /usr/lib64/R/doc/html/katex/fonts/KaTeX_Caligraphic-Regular.ttf
+   /usr/lib64/R/doc/html/katex/fonts/KaTeX_Caligraphic-Regular.woff
+   /usr/lib64/R/doc/html/katex/fonts/KaTeX_Caligraphic-Regular.woff2
+   /usr/lib64/R/doc/html/katex/fonts/KaTeX_Fraktur-Bold.ttf
+   /usr/lib64/R/doc/html/katex/fonts/KaTeX_Fraktur-Bold.woff
+   /usr/lib64/R/doc/html/katex/fonts/KaTeX_Fraktur-Bold.woff2
+   /usr/lib64/R/doc/html/katex/fonts/KaTeX_Fraktur-Regular.ttf
+   /usr/lib64/R/doc/html/katex/fonts/KaTeX_Fraktur-Regular.woff
+   /usr/lib64/R/doc/html/katex/fonts/KaTeX_Fraktur-Regular.woff2
+   /usr/lib64/R/doc/html/katex/fonts/KaTeX_Main-Bold.ttf
+   /usr/lib64/R/doc/html/katex/fonts/KaTeX_Main-Bold.woff
+   /usr/lib64/R/doc/html/katex/fonts/KaTeX_Main-Bold.woff2
+   /usr/lib64/R/doc/html/katex/fonts/KaTeX_Main-BoldItalic.ttf
+   /usr/lib64/R/doc/html/katex/fonts/KaTeX_Main-BoldItalic.woff
+   /usr/lib64/R/doc/html/katex/fonts/KaTeX_Main-BoldItalic.woff2
+   /usr/lib64/R/doc/html/katex/fonts/KaTeX_Main-Italic.ttf
+   /usr/lib64/R/doc/html/katex/fonts/KaTeX_Main-Italic.woff
+   /usr/lib64/R/doc/html/katex/fonts/KaTeX_Main-Italic.woff2
+   /usr/lib64/R/doc/html/katex/fonts/KaTeX_Main-Regular.ttf
+   /usr/lib64/R/doc/html/katex/fonts/KaTeX_Main-Regular.woff
+   /usr/lib64/R/doc/html/katex/fonts/KaTeX_Main-Regular.woff2
+   /usr/lib64/R/doc/html/katex/fonts/KaTeX_Math-BoldItalic.ttf
+   /usr/lib64/R/doc/html/katex/fonts/KaTeX_Math-BoldItalic.woff
+   /usr/lib64/R/doc/html/katex/fonts/KaTeX_Math-BoldItalic.woff2
+   /usr/lib64/R/doc/html/katex/fonts/KaTeX_Math-Italic.ttf
+   /usr/lib64/R/doc/html/katex/fonts/KaTeX_Math-Italic.woff
+   /usr/lib64/R/doc/html/katex/fonts/KaTeX_Math-Italic.woff2
+   /usr/lib64/R/doc/html/katex/fonts/KaTeX_SansSerif-Bold.ttf
+   /usr/lib64/R/doc/html/katex/fonts/KaTeX_SansSerif-Bold.woff
+   /usr/lib64/R/doc/html/katex/fonts/KaTeX_SansSerif-Bold.woff2
+   /usr/lib64/R/doc/html/katex/fonts/KaTeX_SansSerif-Italic.ttf
+   /usr/lib64/R/doc/html/katex/fonts/KaTeX_SansSerif-Italic.woff
+   /usr/lib64/R/doc/html/katex/fonts/KaTeX_SansSerif-Italic.woff2
+   /usr/lib64/R/doc/html/katex/fonts/KaTeX_SansSerif-Regular.ttf
+   /usr/lib64/R/doc/html/katex/fonts/KaTeX_SansSerif-Regular.woff
+   /usr/lib64/R/doc/html/katex/fonts/KaTeX_SansSerif-Regular.woff2
+   /usr/lib64/R/doc/html/katex/fonts/KaTeX_Script-Regular.ttf
+   /usr/lib64/R/doc/html/katex/fonts/KaTeX_Script-Regular.woff
+   /usr/lib64/R/doc/html/katex/fonts/KaTeX_Script-Regular.woff2
+   /usr/lib64/R/doc/html/katex/fonts/KaTeX_Size1-Regular.ttf
+   /usr/lib64/R/doc/html/katex/fonts/KaTeX_Size1-Regular.woff
+   /usr/lib64/R/doc/html/katex/fonts/KaTeX_Size1-Regular.woff2
+   /usr/lib64/R/doc/html/katex/fonts/KaTeX_Size2-Regular.ttf
+   /usr/lib64/R/doc/html/katex/fonts/KaTeX_Size2-Regular.woff
+   /usr/lib64/R/doc/html/katex/fonts/KaTeX_Size2-Regular.woff2
+   /usr/lib64/R/doc/html/katex/fonts/KaTeX_Size3-Regular.ttf
+   /usr/lib64/R/doc/html/katex/fonts/KaTeX_Size3-Regular.woff
+   /usr/lib64/R/doc/html/katex/fonts/KaTeX_Size3-Regular.woff2
+   /usr/lib64/R/doc/html/katex/fonts/KaTeX_Size4-Regular.ttf
+   /usr/lib64/R/doc/html/katex/fonts/KaTeX_Size4-Regular.woff
+   /usr/lib64/R/doc/html/katex/fonts/KaTeX_Size4-Regular.woff2
+   /usr/lib64/R/doc/html/katex/fonts/KaTeX_Typewriter-Regular.ttf
+   /usr/lib64/R/doc/html/katex/fonts/KaTeX_Typewriter-Regular.woff
+   /usr/lib64/R/doc/html/katex/fonts/KaTeX_Typewriter-Regular.woff2
+   /usr/lib64/R/doc/html/katex/katex.css
+   /usr/lib64/R/doc/html/katex/katex.js
+   /usr/lib64/R/doc/html/mathjax-config.js
+   /usr/lib64/R/doc/html/prism.css
+   /usr/lib64/R/doc/html/prism.js
+   /usr/lib64/R/library/translations/lt/LC_MESSAGES/R-methods.mo
+   /usr/lib64/R/library/translations/lt/LC_MESSAGES/R-splines.mo
+   /usr/lib64/R/library/translations/lt/LC_MESSAGES/R-stats.mo
+   /usr/lib64/R/library/translations/lt/LC_MESSAGES/R-tools.mo
+   /usr/lib64/R/library/translations/lt/LC_MESSAGES/tools.mo
+   /usr/lib64/R/library/translations/zh_TW/LC_MESSAGES/R-methods.mo
+   /usr/lib64/R/library/translations/zh_TW/LC_MESSAGES/R-tools.mo
