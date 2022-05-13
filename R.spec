@@ -1,6 +1,6 @@
 Name     : R
 Version  : 4.2.0
-Release  : 145
+Release  : 146
 URL      : https://ftp.osuosl.org/pub/cran/src/base/R-4/R-4.2.0.tar.gz
 Source0  : https://ftp.osuosl.org/pub/cran/src/base/R-4/R-4.2.0.tar.gz
 Summary  : Simple Package with NameSpace and S4 Methods and Classes
@@ -56,7 +56,8 @@ Patch4: 0004-Don-t-force-GC-all-the-time.patch
 Patch5: 0005-Set-m4-macro-directory.patch
 Patch6: 0006-Add-Rbench-as-PGO-profiling-workload.patch
 Patch7: 0007-Adjust-gettext-autotools-config-to-fix-build.patch
-Patch8: lto.patch
+Patch8: 0008-libR.pc-link-to-libRblas-as-well.patch
+Patch9: lto.patch
 
 %description
 (See "doc/FAQ" and "doc/RESOURCES" for more detailed information
@@ -115,6 +116,7 @@ fi
 %patch6 -p1
 %patch7 -p1
 %patch8 -p1
+%patch9 -p1
 
 pushd ..
 cp -a R-%{version} R-%{version}-avx2

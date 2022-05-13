@@ -1,0 +1,42 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Patrick McCarty <patrick.mccarty@intel.com>
+Date: Fri, 13 May 2022 10:10:50 -0700
+Subject: [PATCH] libR.pc: link to libRblas as well
+
+Without linking to libRblas, attempting to use libR.pc standalone raises
+linker errors:
+
+   /usr/bin/ld: warning: libRblas.so, needed by /usr/lib64/R/lib/libR.so, not found (try using -rpath or -rpath-link)
+   /usr/bin/ld: /usr/lib64/R/lib/libR.so: undefined reference to `zgemm_'
+   /usr/bin/ld: /usr/lib64/R/lib/libR.so: undefined reference to `daxpy_'
+   /usr/bin/ld: /usr/lib64/R/lib/libR.so: undefined reference to `dgemv_'
+   /usr/bin/ld: /usr/lib64/R/lib/libR.so: undefined reference to `dscal_'
+   /usr/bin/ld: /usr/lib64/R/lib/libR.so: undefined reference to `dnrm2_'
+   /usr/bin/ld: /usr/lib64/R/lib/libR.so: undefined reference to `dgemm_'
+   /usr/bin/ld: /usr/lib64/R/lib/libR.so: undefined reference to `dtrsm_'
+   /usr/bin/ld: /usr/lib64/R/lib/libR.so: undefined reference to `dcopy_'
+   /usr/bin/ld: /usr/lib64/R/lib/libR.so: undefined reference to `dsyrk_'
+   /usr/bin/ld: /usr/lib64/R/lib/libR.so: undefined reference to `dasum_'
+   /usr/bin/ld: /usr/lib64/R/lib/libR.so: undefined reference to `ddot_'
+   /usr/bin/ld: /usr/lib64/R/lib/libR.so: undefined reference to `drotg_'
+   /usr/bin/ld: /usr/lib64/R/lib/libR.so: undefined reference to `drot_'
+   /usr/bin/ld: /usr/lib64/R/lib/libR.so: undefined reference to `dswap_'
+   collect2: error: ld returned 1 exit status
+
+Signed-off-by: Patrick McCarty <patrick.mccarty@intel.com>
+---
+ src/unix/libR.pc.in | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/src/unix/libR.pc.in b/src/unix/libR.pc.in
+index d8e6fb3..04cfc4a 100644
+--- a/src/unix/libR.pc.in
++++ b/src/unix/libR.pc.in
+@@ -5,6 +5,6 @@ rincludedir=@rincludedir
+ Name: libR
+ Description: R as a library
+ Version: @VERSION
+-Libs: @others -L${rlibdir} -lR
++Libs: @others -L${rlibdir} -lR -lRblas
+ Cflags: -I${rincludedir} -I${rincludedir}@rarch
+ Libs.private:@libsprivate
