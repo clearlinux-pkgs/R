@@ -1,8 +1,8 @@
 Name     : R
-Version  : 4.2.0
+Version  : 4.2.1
 Release  : 146
-URL      : https://ftp.osuosl.org/pub/cran/src/base/R-4/R-4.2.0.tar.gz
-Source0  : https://ftp.osuosl.org/pub/cran/src/base/R-4/R-4.2.0.tar.gz
+URL      : https://ftp.osuosl.org/pub/cran/src/base/R-4/R-4.2.1.tar.gz
+Source0  : https://ftp.osuosl.org/pub/cran/src/base/R-4/R-4.2.1.tar.gz
 Summary  : Simple Package with NameSpace and S4 Methods and Classes
 Group    : Development/Tools
 License  : BSD-2-Clause BSD-3-Clause GPL-2.0 GPL-2.0+
@@ -223,8 +223,8 @@ popd
 %make_install install-tests
 sed -i -e "s/-march=haswell//g" %{buildroot}/usr/lib64/R/etc/Makeconf
 
-/usr/bin/elf-move.py avx2 %{buildroot}-v3 %{buildroot}/usr/share/clear/optimized-elf/ %{buildroot}/usr/share/clear/filemap/filemap-%{name}
-/usr/bin/elf-move.py avx512 %{buildroot}-v4 %{buildroot}/usr/share/clear/optimized-elf/ %{buildroot}/usr/share/clear/filemap/filemap-%{name}
+/usr/bin/elf-move.py avx2 %{buildroot}-v3 %{buildroot} %{buildroot}/usr/share/clear/filemap/filemap-%{name}
+/usr/bin/elf-move.py avx512 %{buildroot}-v4 %{buildroot} %{buildroot}/usr/share/clear/filemap/filemap-%{name}
 
 
 %files
