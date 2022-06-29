@@ -1741,7 +1741,6 @@ sed -i -e "s/-march=haswell//g" %{buildroot}/usr/lib64/R/etc/Makeconf
 
 %files lib
 %defattr(-,root,root,-)
-/usr/share/clear/optimized-elf/lib*
 /usr/lib64/R/lib/libR.so
 /usr/lib64/R/lib/libRblas.so
 /usr/lib64/R/lib/libRlapack.so
