@@ -7,6 +7,7 @@ Summary  : Simple Package with NameSpace and S4 Methods and Classes
 Group    : Development/Tools
 License  : BSD-2-Clause BSD-3-Clause GPL-2.0 GPL-2.0+
 Requires: R-bin = %{version}-%{release}
+Requires: R-filemap = %{version}-%{release}
 Requires: R-lib = %{version}-%{release}
 Requires: R-doc = %{version}-%{release}
 Requires: which
@@ -67,6 +68,7 @@ Patch9: lto.patch
 %package bin
 Summary: bin components for the R package.
 Group: Binaries
+Requires: R-filemap = %{version}-%{release}
 
 %description bin
 bin components for the R package.
@@ -91,9 +93,18 @@ Group: Documentation
 doc components for the R package.
 
 
+%package filemap
+Summary: filemap components for the R package.
+Group: Default
+
+%description filemap
+filemap components for the R package.
+
+
 %package lib
 Summary: lib components for the R package.
 Group: Libraries
+Requires: R-filemap = %{version}-%{release}
 
 %description lib
 lib components for the R package.
@@ -229,7 +240,6 @@ sed -i -e "s/-march=haswell//g" %{buildroot}/usr/lib64/R/etc/Makeconf
 
 %files
 %defattr(-,root,root,-)
-/usr/share/clear/filemap/filemap-*
 /usr/lib64/R/COPYING
 /usr/lib64/R/SVN-REVISION
 /usr/lib64/R/bin/
@@ -259,8 +269,13 @@ sed -i -e "s/-march=haswell//g" %{buildroot}/usr/lib64/R/etc/Makeconf
 %doc /usr/share/man/man1/*
 /usr/lib64/R/doc/manual/*.html
 
+%files filemap
+%defattr(-,root,root,-)
+/usr/share/clear/filemap/filemap-R
+
 %files lib
 %defattr(-,root,root,-)
 /usr/lib64/R/lib/*.so
 /usr/lib64/R/library/*/libs/*.so
 /usr/lib64/R/modules/*.so
+/usr/share/clear/optimized-elf/other*
