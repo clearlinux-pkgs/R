@@ -6,9 +6,9 @@ Source0  : https://ftp.osuosl.org/pub/cran/src/base/R-4/R-4.2.1.tar.gz
 Summary  : Simple Package with NameSpace and S4 Methods and Classes
 Group    : Development/Tools
 License  : BSD-2-Clause BSD-3-Clause GPL-2.0 GPL-2.0+
-Requires: R-bin
-Requires: R-lib
-Requires: R-doc
+Requires: R-bin = %{version}-%{release}
+Requires: R-lib = %{version}-%{release}
+Requires: R-doc = %{version}-%{release}
 Requires: which
 BuildRequires : bison
 BuildRequires : bzip2-dev
@@ -75,9 +75,9 @@ bin components for the R package.
 %package dev
 Summary: dev components for the R package.
 Group: Development
-Requires: R-lib
-Requires: R-bin
-Provides: R-devel
+Requires: R-lib = %{version}-%{release}
+Requires: R-bin = %{version}-%{release}
+Provides: R-devel = %{version}-%{release}
 
 %description dev
 dev components for the R package.
