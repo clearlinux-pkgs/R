@@ -173,10 +173,10 @@ make distclean
 popd
 
 pushd ../R-%{version}-pgo
-export CFLAGS="$CFLAGS_STUB -march=haswell -flto=auto $PGO_GEN_AVX2"
-export FCFLAGS="$FCFLAGS_STUB -march=haswell -flto=auto $PGO_GEN_AVX2"
-export FFLAGS="$FFLAGS_STUB -march=haswell -flto=auto $PGO_GEN_AVX2"
-export CXXFLAGS="$CXXFLAGS_STUB -march=haswell -flto=auto $PGO_GEN_AVX2"
+export CFLAGS="$CFLAGS_STUB -march=x86-64-v3 -flto=auto $PGO_GEN_AVX2"
+export FCFLAGS="$FCFLAGS_STUB -march=x86-64-v3 -flto=auto $PGO_GEN_AVX2"
+export FFLAGS="$FFLAGS_STUB -march=x86-64-v3 -flto=auto $PGO_GEN_AVX2"
+export CXXFLAGS="$CXXFLAGS_STUB -march=x86-64-v3 -flto=auto $PGO_GEN_AVX2"
 %reconfigure --disable-static --with-system-zlib --with-system-bzlib --with-system-pcre --with-system-xz --enable-BLAS-shlib --enable-R-shlib --with-blas="-lopenblas" --with-cairo --enable-lto --disable-long-double
 make V=1  %{?_smp_mflags}
 ./bin/Rscript R-benchmark-25/R-benchmark-25.R
@@ -184,10 +184,10 @@ make distclean
 popd
 
 pushd ../R-%{version}-pgo
-export CFLAGS="$CFLAGS_STUB -march=skylake-avx512 -mprefer-vector-width=256 -flto=auto $PGO_GEN_AVX512"
-export FCFLAGS="$FCFLAGS_STUB -march=skylake-avx512 -mprefer-vector-width=256 -flto=auto $PGO_GEN_AVX512"
-export FFLAGS="$FFLAGS_STUB -march=skylake-avx512 -mprefer-vector-width=256 -flto=auto $PGO_GEN_AVX512"
-export CXXFLAGS="$CXXFLAGS_STUB -march=skylake-avx512 -mprefer-vector-width=256 -flto=auto $PGO_GEN_AVX512"
+export CFLAGS="$CFLAGS_STUB -march=x86-64-v4 -mprefer-vector-width=256 -flto=auto $PGO_GEN_AVX512"
+export FCFLAGS="$FCFLAGS_STUB -march=x86-64-v4 -mprefer-vector-width=256 -flto=auto $PGO_GEN_AVX512"
+export FFLAGS="$FFLAGS_STUB -march=x86-64-v4 -mprefer-vector-width=256 -flto=auto $PGO_GEN_AVX512"
+export CXXFLAGS="$CXXFLAGS_STUB -march=x86-64-v4 -mprefer-vector-width=256 -flto=auto $PGO_GEN_AVX512"
 %reconfigure --disable-static --with-system-zlib --with-system-bzlib --with-system-pcre --with-system-xz --enable-BLAS-shlib --enable-R-shlib --with-blas="-lopenblas" --with-cairo --enable-lto --disable-long-double
 make V=1  %{?_smp_mflags}
 ./bin/Rscript R-benchmark-25/R-benchmark-25.R
@@ -203,19 +203,19 @@ export CXXFLAGS="$CXXFLAGS_STUB $PGO_USE"
 make V=1  %{?_smp_mflags}
 
 pushd ../R-%{version}-avx2
-export CFLAGS="$CFLAGS_STUB -march=haswell -flto=auto $PGO_USE_AVX2"
-export FCFLAGS="$FCFLAGS_STUB -march=haswell -flto=auto $PGO_USE_AVX2"
-export FFLAGS="$FFLAGS_STUB -march=haswell -flto=auto $PGO_USE_AVX2"
-export CXXFLAGS="$CXXFLAGS_STUB -march=haswell -flto=auto $PGO_USE_AVX2"
+export CFLAGS="$CFLAGS_STUB -march=x86-64-v3 -flto=auto $PGO_USE_AVX2"
+export FCFLAGS="$FCFLAGS_STUB -march=x86-64-v3 -flto=auto $PGO_USE_AVX2"
+export FFLAGS="$FFLAGS_STUB -march=x86-64-v3 -flto=auto $PGO_USE_AVX2"
+export CXXFLAGS="$CXXFLAGS_STUB -march=x86-64-v3 -flto=auto $PGO_USE_AVX2"
 %reconfigure --disable-static --with-system-zlib --with-system-bzlib --with-system-pcre --with-system-xz --enable-BLAS-shlib --enable-R-shlib --with-blas="-lopenblas" --with-cairo --enable-lto --disable-long-double
 make V=1  %{?_smp_mflags}
 popd
 
 pushd ../R-%{version}-avx512
-export CFLAGS="$CFLAGS_STUB -march=skylake-avx512 -flto=auto $PGO_USE_AVX512"
-export FCFLAGS="$FCFLAGS_STUB -march=skylake-avx512 -flto=auto $PGO_USE_AVX512"
-export FFLAGS="$FFLAGS_STUB -march=skylake-avx512 -flto=auto $PGO_USE_AVX512"
-export CXXFLAGS="$CXXFLAGS_STUB -march=skylake-avx512 -flto=auto $PGO_USE_AVX512"
+export CFLAGS="$CFLAGS_STUB -march=x86-64-v4 -flto=auto $PGO_USE_AVX512"
+export FCFLAGS="$FCFLAGS_STUB -march=x86-64-v4 -flto=auto $PGO_USE_AVX512"
+export FFLAGS="$FFLAGS_STUB -march=x86-64-v4 -flto=auto $PGO_USE_AVX512"
+export CXXFLAGS="$CXXFLAGS_STUB -march=x86-64-v4 -flto=auto $PGO_USE_AVX512"
 %reconfigure --disable-static --with-system-zlib --with-system-bzlib --with-system-pcre --with-system-xz --enable-BLAS-shlib --enable-R-shlib --with-blas="-lopenblas" --with-cairo --enable-lto --disable-long-double
 make V=1  %{?_smp_mflags}
 popd
@@ -234,7 +234,7 @@ pushd ../R-%{version}-avx2
 popd
 
 %make_install install-tests
-sed -i -e "s/-march=haswell//g" %{buildroot}/usr/lib64/R/etc/Makeconf
+sed -i -e "s/-march=x86-64-v3//g" %{buildroot}/usr/lib64/R/etc/Makeconf
 
 /usr/bin/elf-move.py avx2 %{buildroot}-v3 %{buildroot} %{buildroot}/usr/share/clear/filemap/filemap-%{name}
 /usr/bin/elf-move.py avx512 %{buildroot}-v4 %{buildroot} %{buildroot}/usr/share/clear/filemap/filemap-%{name}
