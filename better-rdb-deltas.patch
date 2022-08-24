@@ -9,3 +9,25 @@
  {
      if(is.character(file)) {
  	if(file == "") stop("'file' must be non-empty string")
+--- R-4.2.1/src/library/tools/R/Rd.R~	2022-03-24 23:02:04.000000000 +0000
++++ R-4.2.1/src/library/tools/R/Rd.R	2022-08-24 14:01:40.126440210 +0000
+@@ -117,7 +117,7 @@
+     ## <NOTE>
+     ## To deal with possible changes in the format of the contents db
+     ## in the future, use a version attribute and/or a formal class.
+-    saveRDS(contents, file = outFile, compress = TRUE)
++    saveRDS(contents, file = outFile, compress = FALSE)
+     ## </NOTE>
+ }
+ 
+--- R-4.2.1/src/library/tools/R/packages.R~	2022-04-26 22:15:01.000000000 +0000
++++ R-4.2.1/src/library/tools/R/packages.R	2022-08-24 14:03:07.552084512 +0000
+@@ -81,7 +81,7 @@
+        write.dcf(db, con)
+        close(con)
+        rownames(db) <- db[, "Package"]
+-       saveRDS(db, file.path(dir, "PACKAGES.rds"), compress = rds_compress)
++       saveRDS(db, file.path(dir, "PACKAGES.rds"), compress = FALSE)
+    }
+ 
+    invisible(np)
