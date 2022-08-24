@@ -144,10 +144,10 @@ export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
 export SOURCE_DATE_EPOCH=1496604342
 unset LD_AS_NEEDED
-export CFLAGS_STUB="$CFLAGS -O3 -falign-functions=32 -fno-semantic-interposition -flto=auto "
-export FCFLAGS_STUB="$CFLAGS -O3 -falign-functions=32 -fno-semantic-interposition -flto=auto "
-export FFLAGS_STUB="$CFLAGS -O3 -falign-functions=32 -fno-semantic-interposition -flto=auto "
-export CXXFLAGS_STUB="$CXXFLAGS -O3 -falign-functions=32 -fno-semantic-interposition -flto=auto "
+export CFLAGS_STUB="$CFLAGS -O3 -fno-semantic-interposition -flto=auto "
+export FCFLAGS_STUB="$CFLAGS -O3 -fno-semantic-interposition -flto=auto "
+export FFLAGS_STUB="$CFLAGS -O3 -fno-semantic-interposition -flto=auto "
+export CXXFLAGS_STUB="$CXXFLAGS -O3 -fno-semantic-interposition -flto=auto "
 
 # Ensure that C and C++ shared libraries contain debuginfo by adding -g to
 # linker command lines. Note that -g is appended to the default linker flags.
