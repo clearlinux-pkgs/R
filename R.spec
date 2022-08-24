@@ -59,6 +59,7 @@ Patch6: 0006-Add-Rbench-as-PGO-profiling-workload.patch
 Patch7: 0007-Adjust-gettext-autotools-config-to-fix-build.patch
 Patch8: 0008-libR.pc-link-to-libRblas-as-well.patch
 Patch9: lto.patch
+Patch10: better-rdb-deltas.patch
 
 %description
 (See "doc/FAQ" and "doc/RESOURCES" for more detailed information
@@ -128,6 +129,7 @@ fi
 %patch7 -p1
 %patch8 -p1
 %patch9 -p1
+%patch10 -p1
 
 pushd ..
 cp -a R-%{version} R-%{version}-avx2
