@@ -71,3 +71,32 @@
                                 variables) {
  
          envlist <- function(e)
+--- R-4.2.1/src/library/tools/R/install.R~	2022-08-24 19:08:51.000000000 +0000
++++ R-4.2.1/src/library/tools/R/install.R	2022-08-24 20:30:39.236943291 +0000
+@@ -1458,7 +1458,7 @@
+                                    "gzip" = TRUE,
+                                    "bzip2" = 2L,
+                                    "xz" = 3L,
+-                                   TRUE)  # default to gzip
++                                   FALSE)  # default to gzip
+                 } else if(file.size(f) > 1e6) comp <- 3L # "xz"
+ 		res <- try(sysdata2LazyLoadDB(f, file.path(instdir, "R"),
+                                               compress = comp))
+@@ -1542,7 +1542,7 @@
+                                                 "bzip2" = 2L,
+                                                 "xz" = 3L,
+                                                 ## perhaps error?
+-                                                TRUE)  # default to gzip
++                                                FALSE)  # default to gzip
+ 		    res <- try(data2LazyLoadDB(pkg_name, lib,
+ 					       compress = FALSE))
+ 		    if (inherits(res, "try-error"))
+@@ -1946,7 +1946,7 @@
+     merge <- FALSE
+     dsym <- nzchar(Sys.getenv("PKG_MAKE_DSYM"))
+     get_user_libPaths <- FALSE
+-    data_compress <- TRUE # FALSE (none), TRUE (gzip), 2 (bzip2), 3 (xz)
++    data_compress <- FALSE # FALSE (none), TRUE (gzip), 2 (bzip2), 3 (xz)
+     resave_data <- FALSE
+     compact_docs <- FALSE
+     keep.source <- getOption("keep.source.pkgs")
