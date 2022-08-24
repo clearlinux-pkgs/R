@@ -31,3 +31,21 @@
     }
  
     invisible(np)
+--- R-4.2.1/src/library/base/R/serialize.R~	2022-08-24 13:59:39.000000000 +0000
++++ R-4.2.1/src/library/base/R/serialize.R	2022-08-24 15:59:11.387146901 +0000
+@@ -24,14 +24,7 @@
+ 	if(file == "") stop("'file' must be non-empty string")
+ 	object <- object # do not create corrupt file if object does not exist
+ 	mode <- if(ascii %in% FALSE) "wb" else "w"
+-	con <- if (is.logical(compress))
+-		   if(compress) gzfile(file, mode) else file(file, mode)
+-	       else
+-		   switch(compress,
+-			  "bzip2" = bzfile(file, mode),
+-			  "xz"    = xzfile(file, mode),
+-			  "gzip"  = gzfile(file, mode),
+-			  stop("invalid 'compress' argument: ", compress))
++	con <- file(file, mode)
+         on.exit(close(con))
+     }
+     else if(inherits(file, "connection")) {
