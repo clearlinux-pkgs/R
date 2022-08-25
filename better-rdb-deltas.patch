@@ -190,14 +190,3 @@
                          set.install.dir = set.install.dir)
          file.copy(loaderFile, codeFile, TRUE)
      }
---- R-4.2.1/src/library/base/makebasedb.R~	2022-03-24 23:02:03.000000000 +0000
-+++ R-4.2.1/src/library/base/makebasedb.R	2022-08-24 19:10:16.089015999 +0000
-@@ -17,7 +17,7 @@
- #  https://www.R-project.org/Licenses/
- 
- local({
--    makeLazyLoadDB <- function(from, filebase, compress = TRUE, ascii = FALSE,
-+    makeLazyLoadDB <- function(from, filebase, compress = FALSE, ascii = FALSE,
-                                variables) {
- 
-         envlist <- function(e)
