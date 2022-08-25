@@ -100,3 +100,104 @@
      resave_data <- FALSE
      compact_docs <- FALSE
      keep.source <- getOption("keep.source.pkgs")
+--- R-4.2.1/src/library/tools/R/makeLazyLoad.R~	2022-06-10 22:15:01.000000000 +0000
++++ R-4.2.1/src/library/tools/R/makeLazyLoad.R	2022-08-25 15:49:10.525442091 +0000
+@@ -20,7 +20,7 @@
+     function(package, lib.loc = NULL,
+              keep.source = getOption("keep.source.pkgs"),
+              keep.parse.data = getOption("keep.parse.data.pkgs"),
+-             compress = TRUE, set.install.dir = NULL)
++             compress = FALSE, set.install.dir = NULL)
+ {
+     pkgpath <- find.package(package, lib.loc, quiet = TRUE)
+     if(!length(pkgpath))
+@@ -33,18 +33,18 @@
+                   package = package, lib.loc = lib.loc,
+                   keep.source = keep.source, keep.parse.data = keep.parse.data,
+                   partial = TRUE))
+-        makeLazyLoadDB(ns, dbbase, compress = compress,
++        makeLazyLoadDB(ns, dbbase, compress = FALSE,
+                        set.install.dir = set.install.dir)
+     }
+     else
+         stop("all packages should have a NAMESPACE")
+ }
+ 
+-sysdata2LazyLoadDB <- function(srcFile, destDir, compress = TRUE)
++sysdata2LazyLoadDB <- function(srcFile, destDir, compress = FALSE)
+ {
+     e <- new.env(hash=TRUE)
+     load(srcFile, e)
+-    makeLazyLoadDB(e, file.path(destDir, "sysdata"), compress = compress)
++    makeLazyLoadDB(e, file.path(destDir, "sysdata"), compress = FALSE)
+ }
+ 
+ list_data_in_pkg <-
+@@ -101,7 +101,7 @@
+     } else NULL
+ }
+ 
+-data2LazyLoadDB <- function(package, lib.loc = NULL, compress = TRUE)
++data2LazyLoadDB <- function(package, lib.loc = NULL, compress = FALSE)
+ {
+     options(warn=1)
+     pkgpath <- find.package(package, lib.loc, quiet = TRUE)
+@@ -149,9 +149,9 @@
+ 
+             if(length(loaded)) {
+                 dbbase <- file.path(dataDir, "Rdata")
+-                makeLazyLoadDB(dataEnv, dbbase, compress = compress)
++                makeLazyLoadDB(dataEnv, dbbase, compress = FALSE)
+                 saveRDS(dlist, file.path(dataDir, "Rdata.rds"),
+-                         compress = compress)
++                         compress = FALSE)
+                 unlink(f0)
+                 if(file.exists(file.path(dataDir, "filelist")))
+                     unlink(file.path(dataDir, c("filelist", "Rdata.zip")))
+@@ -160,7 +160,7 @@
+     }
+ }
+ 
+-makeLazyLoadDB <- function(from, filebase, compress = TRUE, ascii = FALSE,
++makeLazyLoadDB <- function(from, filebase, compress = FALSE, ascii = FALSE,
+                            variables, set.install.dir = NULL)
+ {
+     ## pre-empt any problems with interpretation of 'ascii'
+@@ -168,6 +168,8 @@
+     if (is.na(ascii)) stop("'ascii' must be TRUE or FALSE", domain = NA)
+     ascii <- as.integer(ascii)
+ 
++    compress = FALSE
++
+     envlist <- function(e)
+         .Internal(getVarsFromFrame(ls(e, all.names = TRUE), e, FALSE))
+ 
+@@ -330,7 +332,7 @@
+ }
+ 
+ makeLazyLoading <-
+-    function(package, lib.loc = NULL, compress = TRUE,
++    function(package, lib.loc = NULL, compress = FALSE,
+              keep.source = getOption("keep.source.pkgs"),
+              keep.parse.data = getOption("keep.parse.data.pkgs"),
+              set.install.dir = NULL)
+@@ -363,7 +365,7 @@
+         code2LazyLoadDB(package, lib.loc = lib.loc,
+                         keep.source = keep.source,
+                         keep.parse.data = keep.parse.data,
+-                        compress = compress,
++                        compress = FALSE,
+                         set.install.dir = set.install.dir)
+         file.copy(loaderFile, codeFile, TRUE)
+     }
+--- R-4.2.1/src/library/base/makebasedb.R~	2022-03-24 23:02:03.000000000 +0000
++++ R-4.2.1/src/library/base/makebasedb.R	2022-08-24 19:10:16.089015999 +0000
+@@ -17,7 +17,7 @@
+ #  https://www.R-project.org/Licenses/
+ 
+ local({
+-    makeLazyLoadDB <- function(from, filebase, compress = TRUE, ascii = FALSE,
++    makeLazyLoadDB <- function(from, filebase, compress = FALSE, ascii = FALSE,
+                                variables) {
+ 
+         envlist <- function(e)
