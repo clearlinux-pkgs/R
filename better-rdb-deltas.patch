@@ -190,3 +190,16 @@
                          set.install.dir = set.install.dir)
          file.copy(loaderFile, codeFile, TRUE)
      }
+--- R-4.2.1/src/main/connections.c~	2022-04-28 22:15:01.000000000 +0000
++++ R-4.2.1/src/main/connections.c	2022-09-02 18:35:05.389664043 +0000
+@@ -1691,8 +1691,8 @@
+ 
+     strcpy(mode, con->mode);
+     /* Must open as binary */
+-    if(strchr(con->mode, 'w')) snprintf(mode, 6, "wb%1d", gzcon->compress);
+-    else if (con->mode[0] == 'a') snprintf(mode, 6, "ab%1d", gzcon->compress);
++    if(strchr(con->mode, 'w')) snprintf(mode, 0, "wb%1d", gzcon->compress);
++    else if (con->mode[0] == 'a') snprintf(mode, 0, "ab%1d", gzcon->compress);
+     else strcpy(mode, "rb");
+     errno = 0; /* precaution */
+     name = R_ExpandFileName(con->description);
