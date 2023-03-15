@@ -1,8 +1,8 @@
 Name     : R
-Version  : 4.2.2
+Version  : 4.2.3
 Release  : 168
-URL      : https://ftp.osuosl.org/pub/cran/src/base/R-4/R-4.2.2.tar.gz
-Source0  : https://ftp.osuosl.org/pub/cran/src/base/R-4/R-4.2.2.tar.gz
+URL      : https://ftp.osuosl.org/pub/cran/src/base/R-4/R-4.2.3.tar.gz
+Source0  : https://ftp.osuosl.org/pub/cran/src/base/R-4/R-4.2.3.tar.gz
 Summary  : Simple Package with NameSpace and S4 Methods and Classes
 Group    : Development/Tools
 License  : BSD-2-Clause BSD-3-Clause GPL-2.0 GPL-2.0+
