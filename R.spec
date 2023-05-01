@@ -1,8 +1,8 @@
 Name     : R
-Version  : 4.2.3
+Version  : 4.3.0
 Release  : 168
-URL      : https://ftp.osuosl.org/pub/cran/src/base/R-4/R-4.2.3.tar.gz
-Source0  : https://ftp.osuosl.org/pub/cran/src/base/R-4/R-4.2.3.tar.gz
+URL      : https://ftp.osuosl.org/pub/cran/src/base/R-4/R-4.3.0.tar.gz
+Source0  : https://ftp.osuosl.org/pub/cran/src/base/R-4/R-4.3.0.tar.gz
 Summary  : Simple Package with NameSpace and S4 Methods and Classes
 Group    : Development/Tools
 License  : BSD-2-Clause BSD-3-Clause GPL-2.0 GPL-2.0+
@@ -73,7 +73,6 @@ Patch10: better-rdb-deltas.patch
 %package bin
 Summary: bin components for the R package.
 Group: Binaries
-Requires: R-filemap = %{version}-%{release}
 
 %description bin
 bin components for the R package.
@@ -98,18 +97,10 @@ Group: Documentation
 doc components for the R package.
 
 
-%package filemap
-Summary: filemap components for the R package.
-Group: Default
-
-%description filemap
-filemap components for the R package.
-
 
 %package lib
 Summary: lib components for the R package.
 Group: Libraries
-Requires: R-filemap = %{version}-%{release}
 
 %description lib
 lib components for the R package.
@@ -261,7 +252,6 @@ sed -i -e "s/-march=x86-64-v3//g" %{buildroot}/usr/lib64/R/etc/Makeconf
 %defattr(-,root,root,-)
 /usr/bin/R
 /usr/bin/Rscript
-/usr/share/clear/optimized-elf/bin*
 
 %files dev
 %defattr(-,root,root,-)
@@ -275,13 +265,8 @@ sed -i -e "s/-march=x86-64-v3//g" %{buildroot}/usr/lib64/R/etc/Makeconf
 %doc /usr/share/man/man1/*
 /usr/lib64/R/doc/manual/*.html
 
-%files filemap
-%defattr(-,root,root,-)
-/usr/share/clear/filemap/filemap-R
-
 %files lib
 %defattr(-,root,root,-)
 /usr/lib64/R/lib/*.so
 /usr/lib64/R/library/*/libs/*.so
 /usr/lib64/R/modules/*.so
-/usr/share/clear/optimized-elf/other*
