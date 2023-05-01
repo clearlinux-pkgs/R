@@ -239,11 +239,13 @@ sed -i -e "s/-march=x86-64-v3//g" %{buildroot}/usr/lib64/R/etc/Makeconf
 %defattr(-,root,root,-)
 /usr/lib64/R/COPYING
 /usr/lib64/R/SVN-REVISION
-*/usr/lib64/R/bin/
+/usr/lib64/R/bin/
+/V*/usr/lib64/R/bin/
 /usr/lib64/R/doc/
 %exclude /usr/lib64/R/doc/manual/*.html
 /usr/lib64/R/etc/
-*/usr/lib64/R/library/
+/usr/lib64/R/library/
+/V*//usr/lib64/R/library/
 %exclude /usr/lib64/R/library/*/libs/*.so
 /usr/lib64/R/share/
 /usr/lib64/R/tests/
@@ -268,5 +270,7 @@ sed -i -e "s/-march=x86-64-v3//g" %{buildroot}/usr/lib64/R/etc/Makeconf
 %files lib
 %defattr(-,root,root,-)
 /usr/lib64/R/lib/*.so
-*/usr/lib64/R/library/*/libs/*.so
-*/usr/lib64/R/modules/*.so
+/usr/lib64/R/library/*/libs/*.so
+/V*//usr/lib64/R/modules/*.so
+/V*/usr/lib64/R/library/*/libs/*.so
+/usr/lib64/R/modules/*.so
