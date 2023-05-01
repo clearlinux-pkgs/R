@@ -7,7 +7,6 @@ Summary  : Simple Package with NameSpace and S4 Methods and Classes
 Group    : Development/Tools
 License  : BSD-2-Clause BSD-3-Clause GPL-2.0 GPL-2.0+
 Requires: R-bin = %{version}-%{release}
-Requires: R-filemap = %{version}-%{release}
 Requires: R-lib = %{version}-%{release}
 Requires: R-doc = %{version}-%{release}
 Requires: which
