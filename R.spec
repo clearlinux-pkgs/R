@@ -241,6 +241,8 @@ sed -i -e "s/-march=x86-64-v3//g" %{buildroot}/usr/lib64/R/etc/Makeconf
 /usr/lib64/R/SVN-REVISION
 /usr/lib64/R/bin/
 /V*/usr/lib64/R/bin/
+/V3/usr/bin/Rscript
+/V4/usr/bin/Rscript
 /usr/lib64/R/doc/
 %exclude /usr/lib64/R/doc/manual/*.html
 /usr/lib64/R/etc/
@@ -274,3 +276,10 @@ sed -i -e "s/-march=x86-64-v3//g" %{buildroot}/usr/lib64/R/etc/Makeconf
 /V*//usr/lib64/R/modules/*.so
 /V*/usr/lib64/R/library/*/libs/*.so
 /usr/lib64/R/modules/*.so
+/V3/usr/bin/Rscript
+/V3/usr/lib64/R/lib/libR.so
+/V3/usr/lib64/R/lib/libRblas.so
+/V3/usr/lib64/R/lib/libRlapack.so
+/V4/usr/lib64/R/lib/libR.so
+/V4/usr/lib64/R/lib/libRblas.so
+/V4/usr/lib64/R/lib/libRlapack.so
