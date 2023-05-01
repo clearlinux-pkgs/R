@@ -139,10 +139,10 @@ export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
 export SOURCE_DATE_EPOCH=1496604342
 unset LD_AS_NEEDED
-export CFLAGS_STUB="$CFLAGS -O3 -fno-semantic-interposition -flto=auto -gno-variable-location-views -gno-column-info -femit-struct-debug-baseonly -gz -g1 "
-export FCFLAGS_STUB="$CFLAGS -O3 -fno-semantic-interposition -flto=auto -gno-variable-location-views -gno-column-info -femit-struct-debug-baseonly -gz -g1 "
-export FFLAGS_STUB="$CFLAGS -O3 -fno-semantic-interposition -flto=auto -gno-variable-location-views -gno-column-info -femit-struct-debug-baseonly -gz -g1 "
-export CXXFLAGS_STUB="$CXXFLAGS -O3 -fno-semantic-interposition -flto=auto -gno-variable-location-views -gno-column-info -femit-struct-debug-baseonly -gz -g1 "
+export CFLAGS_STUB="$CFLAGS -O3 -fno-semantic-interposition -flto=auto -gno-variable-location-views -gno-column-info -femit-struct-debug-baseonly -gz=zstd -g1 "
+export FCFLAGS_STUB="$CFLAGS -O3 -fno-semantic-interposition -flto=auto -gno-variable-location-views -gno-column-info -femit-struct-debug-baseonly -gz=zstd -g1 "
+export FFLAGS_STUB="$CFLAGS -O3 -fno-semantic-interposition -flto=auto -gno-variable-location-views -gno-column-info -femit-struct-debug-baseonly -gz=zstd -g1 "
+export CXXFLAGS_STUB="$CXXFLAGS -O3 -fno-semantic-interposition -flto=auto -gno-variable-location-views -gno-column-info -femit-struct-debug-baseonly -gz=zstd -g1 "
 
 # Ensure that C and C++ shared libraries contain debuginfo by adding -g to
 # linker command lines. Note that -g is appended to the default linker flags.
@@ -239,11 +239,11 @@ sed -i -e "s/-march=x86-64-v3//g" %{buildroot}/usr/lib64/R/etc/Makeconf
 %defattr(-,root,root,-)
 /usr/lib64/R/COPYING
 /usr/lib64/R/SVN-REVISION
-/usr/lib64/R/bin/
+*/usr/lib64/R/bin/
 /usr/lib64/R/doc/
 %exclude /usr/lib64/R/doc/manual/*.html
 /usr/lib64/R/etc/
-/usr/lib64/R/library/
+*/usr/lib64/R/library/
 %exclude /usr/lib64/R/library/*/libs/*.so
 /usr/lib64/R/share/
 /usr/lib64/R/tests/
@@ -268,5 +268,5 @@ sed -i -e "s/-march=x86-64-v3//g" %{buildroot}/usr/lib64/R/etc/Makeconf
 %files lib
 %defattr(-,root,root,-)
 /usr/lib64/R/lib/*.so
-/usr/lib64/R/library/*/libs/*.so
-/usr/lib64/R/modules/*.so
+*/usr/lib64/R/library/*/libs/*.so
+*/usr/lib64/R/modules/*.so
