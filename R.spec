@@ -275,7 +275,6 @@ sed -i -e "s/-march=x86-64-v3//g" %{buildroot}/usr/lib64/R/etc/Makeconf
 /V*//usr/lib64/R/modules/*.so
 /V*/usr/lib64/R/library/*/libs/*.so
 /usr/lib64/R/modules/*.so
-/V3/usr/bin/Rscript
 /V3/usr/lib64/R/lib/libR.so
 /V3/usr/lib64/R/lib/libRblas.so
 /V3/usr/lib64/R/lib/libRlapack.so
