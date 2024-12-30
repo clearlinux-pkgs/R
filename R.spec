@@ -83,6 +83,7 @@ Group: Development
 Requires: R-lib = %{version}-%{release}
 Requires: R-bin = %{version}-%{release}
 Provides: R-devel = %{version}-%{release}
+Requires: R-Rcpp-dev
 
 %description dev
 dev components for the R package.
