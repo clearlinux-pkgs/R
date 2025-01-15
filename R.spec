@@ -1,6 +1,6 @@
 Name     : R
 Version  : 4.4.2
-Release  : 188
+Release  : 189
 URL      : https://ftp.osuosl.org/pub/cran/src/base/R-4/R-4.4.2.tar.gz
 Source0  : https://ftp.osuosl.org/pub/cran/src/base/R-4/R-4.4.2.tar.gz
 Summary  : Simple Package with NameSpace and S4 Methods and Classes
@@ -72,6 +72,7 @@ Patch10: better-rdb-deltas.patch
 %package bin
 Summary: bin components for the R package.
 Group: Binaries
+Requires: R = %{version}-%{release}
 
 %description bin
 bin components for the R package.
